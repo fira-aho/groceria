@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart - Groceria</title>
+
+    <!-- CSS Khusus Cart -->
+    <link rel="stylesheet" href="C:\xampp\htdocs\groceria\assets\css\pages\cart.css">
+</head>
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <header class="navbar">
+        <div class="logo">Groceria</div>
+        <nav>
+            <a href="#">Promosi</a>
+            <a href="#">Lokasi Toko</a>
+        </nav>
+        <div class="icons">
+            🛒 👤
+        </div>
+    </header>
+
+
+    <!-- ===== CONTAINER ===== -->
+    <main class="container">
+
+        <!-- ===== LEFT SIDE (LIST PRODUK) ===== -->
+        <section class="cart-left">
+
+            <h2>Keranjang Belanja Anda</h2>
+            <p class="subtitle">Daftar belanjaan kurasi pilihan Anda untuk hari yang lebih segar.</p>
+
+            <!-- === ITEM 1 === -->
+            <div class="cart-item">
+                <!-- Gambar produk -->
+                <img src="C:\xampp\htdocs\groceria\assets\img\bayam.jpg" alt="Bayam">
+
+                <div class="item-info">
+                    <h4>Bayam Organik Lokal</h4>
+                    <p>500g • Kebun Senang</p>
+                    <span>Rp 12.500</span>
+                </div>
+
+                <!-- Quantity -->
+                <div class="qty">
+                    <button>-</button>
+                    <span>2</span>
+                    <button>+</button>
+                </div>
+
+                <!-- Subtotal -->
+                <div class="subtotal">Rp 25.000</div>
+            </div>
+
+
+            <!-- === ITEM 2 === -->
+            <div class="cart-item">
+                <img src="C:\xampp\htdocs\groceria\assets\img\susu.jpg" alt="Susu">
+
+                <div class="item-info">
+                    <h4>Susu Almond Murni</h4>
+                    <p>1L • Tanpa Gula</p>
+                    <span>Rp 45.000</span>
+                </div>
+
+                <div class="qty">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+
+                <div class="subtotal">Rp 45.000</div>
+            </div>
+
+
+            <!-- === ITEM 3 === -->
+            <div class="cart-item">
+                <img src="C:\xampp\htdocs\groceria\assets\img\wortel.jpg" alt="Wortel">
+
+                <div class="item-info">
+                    <h4>Wortel Organik</h4>
+                    <p>500g • Grade A</p>
+                    <span>Rp 18.000</span>
+                </div>
+
+                <div class="qty">
+                    <button>-</button>
+                    <span>1</span>
+                    <button>+</button>
+                </div>
+
+                <div class="subtotal">Rp 18.000</div>
+            </div>
+
+
+            <!-- === PROMO CODE === -->
+            <div class="promo-box">
+                <p>Ada kode promo?</p>
+                <a href="#">Tambah Kode</a>
+            </div>
+
+
+            <!-- === REKOMENDASI === -->
+            <h3>Lengkapi Belanjaan Anda</h3>
+
+            <div class="recommendation">
+
+                <div class="card">
+                    <img src="C:\xampp\htdocs\groceria\assets\img\yogurt.jpg" alt="Yogurt">
+                    <p>Greek Yogurt Berry</p>
+                    <span>Rp 32.000</span>
+                    <button>Tambah</button>
+                </div>
+
+                <div class="card">
+                    <img src="C:\xampp\htdocs\groceria\assets\img\alpukat.jpg" alt="Alpukat">
+                    <p>Alpukat Mentega</p>
+                    <span>Rp 15.500</span>
+                    <button>Tambah</button>
+                </div>
+
+                <div class="card">
+                    <img src="C:\xampp\htdocs\groceria\assets\img\madu.jpg" alt="Madu">
+                    <p>Madu Hutan</p>
+                    <span>Rp 78.000</span>
+                    <button>Tambah</button>
+                </div>
+
+                <div class="card">
+                    <img src="C:\xampp\htdocs\groceria\assets\img\apel.jpg" alt="Apel">
+                    <p>Apel Fuji</p>
+                    <span>Rp 12.000</span>
+                    <button>Tambah</button>
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ===== RIGHT SIDE (SUMMARY + BUDGET) ===== -->
+        <aside class="cart-right">
+
+            <!-- === BUDGET CONTROL === -->
+            <div class="budget-box">
+                <h4>Atur Budget Anda</h4>
+                <p>Rp 100.000</p>
+
+                <!-- Progress bar -->
+                <div class="progress">
+                    <div class="progress-fill"></div>
+                </div>
+
+                <small>Digunakan Rp 83.000 dari Rp 100.000</small>
+            </div>
+
+
+            <!-- === SUMMARY === -->
+            <div class="summary">
+                <h3>Ringkasan Belanja</h3>
+
+                <div class="row">
+                    <span>Total Barang</span>
+                    <span>Rp 88.000</span>
+                </div>
+
+                <div class="row">
+                    <span>Biaya Pengiriman</span>
+                    <span class="free">GRATIS</span>
+                </div>
+
+                <div class="row discount">
+                    <span>Diskon Member</span>
+                    <span>-Rp 5.000</span>
+                </div>
+
+                <hr>
+
+                <div class="total">
+                    <span>Total Harga</span>
+                    <span>Rp 83.000</span>
+                </div>
+
+                <button class="checkout-btn">Lanjut ke Checkout →</button>
+            </div>
+
+        </aside>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <p>
+        Prodi Teknik Informatika <br>
+        Universitas Esa Unggul <br>
+        Mata Kuliah Pemrograman Web <br>
+        Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
+        Nama Kelompok: Groceria<br>
+        Kelas: KH001<br><br>
+
+        <strong>Anggota Kelompok:</strong><br>
+
+        &gt; Rafi Adriyan Ramadhan <br>
+        &gt; Raffa Nugraha <br>
+        &gt; M. Rafi Adhiya
+    </p>
+
+</body>
+</html>
