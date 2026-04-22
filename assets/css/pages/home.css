@@ -35,7 +35,7 @@ body {
 
 /* HERO */
 .section-promo {
-    background: url("1284104.jpg") center/cover;
+    background: url("C:/xampp/htdocs/groceria/assets/img/1284104.jpg") center/cover;
     padding: 50px;
     border-radius: 20px;
     color: white;
@@ -146,7 +146,7 @@ body {
 
 /* INSPIRE */
 .inspire {
-    background: url("kitchen.jpg") center/cover;
+    background: url("C:/xampp/htdocs/groceria/assets/img/kitchen.jpg") center/cover;
     padding: 40px;
     border-radius: 20px;
     margin-top: 40px;
