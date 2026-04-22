@@ -1,0 +1,112 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
+
+body {
+  background: #f8f9f8;
+}
+
+/* Layout utama */
+.checkout-container {
+  width: 1000px;
+  margin: 40px auto;
+  display: flex;
+  gap: 20px;
+}
+
+/* KIRI */
+.checkout-form {
+  flex: 2;
+  background: #d7dddd;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.checkout-form input,
+.checkout-form textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 6px 0 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Payment */
+.payment-options {
+  display: flex;
+  gap: 10px;
+}
+
+.payment-options button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  cursor: pointer;
+}
+
+.payment-options button:hover {
+  border-color: #f9faf9;
+}
+
+/* KANAN */
+.checkout-summary {
+  flex: 1;
+  background: #f7f3f3;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Produk list */
+.checkout-summary ul {
+  list-style: none;
+  margin-bottom: 10px;
+}
+
+.checkout-summary li {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+/* Subtotal */
+.row {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+}
+
+/* Total */
+.total {
+  display: flex;
+  justify-content: space-between;
+  color: #15e115;
+  margin-top: 10px;
+}
+
+/* Button */
+.pay-btn {
+  width: 100%;
+  padding: 12px;
+  margin-top: 1px;
+  background: #4fb969;
+  color: #faf6f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.pay-btn:hover {
+  background: #33ca5b;
+}
+
+.secure {
+  text-align: center;
+  font-size: 12px;
+  color: gray;
+  margin-top: 8px;
+}

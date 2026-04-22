@@ -3,8 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Checkout</title>
+
+    <link rel="stylesheet" href="C:\xampp\htdocs\groceria\assets\css\pages\checkout.css">
 </head>
+
 <body>
+
+<div class="checkout-container">
+
+  <!-- KIRI -->
+  <div class="checkout-form">
 
     <!-- Header -->
     <h2>🛒 Groceria</h2>
@@ -15,68 +23,90 @@
     <h1>Formulir Checkout 📋</h1>
     <p>Pastikan detail pesanan Anda sudah benar sebelum melanjutkan pembayaran.</p>
 
-    <!-- Form Pengiriman -->
+    <!-- Form -->
     <h3>🚚 Informasi Pengiriman</h3>
 
     <form>
         <p>Nama Lengkap</p>
-        <input type="text" placeholder="Masukkan nama penerima" size="50">
+        <input type="text" placeholder="Masukkan nama penerima">
 
         <p>Nomor Telepon</p>
-        <input type="text" placeholder="08xx xxxx xxxx" size="50">
+        <input type="text" placeholder="08xx xxxx xxxx">
 
         <p>Alamat Lengkap</p>
-        <br>
-        <textarea rows="4" cols="52" placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"></textarea>
+        <textarea rows="4" placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"></textarea>
 
         <p>Catatan (Opsional)</p>
-        <input type="text" placeholder="Contoh: Titip di satpam atau warna pagar" size="50">
+        <input type="text" placeholder="Contoh: Titip di satpam, tetangga atau warna pagar">
     </form>
 
     <hr>
 
-    <!-- Metode Pembayaran -->
+    <!-- Payment -->
     <h3>💳 Metode Pembayaran</h3>
 
-    <button>🏦 Transfer Bank</button>
-    <button>📱 E-Wallet</button>
-    <button>💵 Bayar di Tempat</button>
+    <div class="payment-options">
+      <button>🏦 Transfer Bank</button>
+      <button>📱 E-Wallet</button>
+      <button>💵 Bayar di Tempat</button>
+    </div>
 
-    <hr>
+  </div>
 
-    <!-- Ringkasan -->
+  <!-- KANAN -->
+  <div class="checkout-summary">
+
     <h3>🧾 Ringkasan & Bayar</h3>
 
     <ul>
-        <li>🥑 Alpukat Mentega Organik (1kg) - Rp 78.000</li>
-        <li>🍞 Roti Sourdough Artisan (400g) - Rp 35.000</li>
+      <li>
+        <span>🥑 Alpukat Mentega</span>
+        <span>Rp 78.000</span>
+      </li>
+      <li>
+        <span>🍞 Roti Sourdough</span>
+        <span>Rp 35.000</span>
+      </li>
     </ul>
 
-    <p>Subtotal Produk: Rp 113.000</p>
-    <p>Ongkos Kirim: Rp 15.000 🚚</p>
-
-    <h2>Total Pembayaran: Rp 128.000 💰</h2>
-
-    <button>✅ BAYAR SEKARANG</button>
-
-    <p>🔒 Secure Checkout</p>
-
-    <!-- FOOTER -->
-  <footer>
-    <p>
-        Prodi Teknik Informatika <br>
-        Universitas Esa Unggul <br>
-        Mata Kuliah Pemrograman Web <br>
-        Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
-        Nama Kelompok: Groceria<br>
-        Kelas: KH001<br>
-
-        Anggota Kelompok: <br>
-
-     > Rafi Adriyan Ramadhan <br>
-     > Raffa Nugraha <br>
-     > M. Rafi Adhiya
+    <p class="row">
+      <span>Subtotal</span>
+      <span>Rp 113.000</span>
     </p>
-  </footer>
+
+    <p class="row">
+      <span>Ongkir</span>
+      <span>Rp 15.000</span>
+    </p>
+
+    <h2 class="total">
+      <span>Total</span>
+      <span>Rp 128.000</span>
+    </h2>
+
+    <button class="pay-btn">✅ BAYAR SEKARANG</button>
+    <p class="secure">🔒 Secure Checkout</p>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    Prodi Teknik Informatika <br>
+    Universitas Esa Unggul <br>
+    Mata Kuliah Pemrograman Web <br>
+    Dosen Pengampu: DEWI SETIOWATI <br>
+    Nama Kelompok: Groceria<br>
+    Kelas: KH001<br><br>
+
+    Anggota:<br>
+    > Rafi Adriyan Ramadhan <br>
+    > Raffa Nugraha <br>
+    > M. Rafi Adhiya
+  </p>
+</footer>
+
 </body>
 </html>
