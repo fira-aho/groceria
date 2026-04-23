@@ -1,148 +1,114 @@
-<html>
-    <head>
-        <title>Groceria</title>
-    </head>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Groceria</title>
+    <link rel="stylesheet" href="C:\xampp\htdocs\groceria\assets\css\pages\home.css">
+</head>
 
-    <body>
-        <!-- Membuat Tabel Navigasi -->
-        <table width="100%">
-            <tr>
-                <!--Kolom 1-->
-                <td>
-                    <h2><b style="color: green;">Groceria</b></h2>
-                </td>
+<body>
 
-                <!--Kolom 2-->
-                <td>
-                   <a>Beranda</a>
-                   <a>Promosi</a>
-                   <a>Lokasi Toko</a>
-                </td>
+<!-- NAVBAR -->
+<div class="navbar">
+    <h2 class="logo">Groceria</h2>
 
-                <!--Kolom 3-->
-                <td>
-                    <input type="text" placeholder="Cari bahan segar pilihan...">
-                </td>
-                
-                <!--Kolom 4-->
-                <td>
-                    <a href="">🛒</a>
-                    <a href="">👤</a>
-                </td>
-            </tr>  
-        </table>
+    <div class="menu">
+        <a href="#">Beranda</a>
+        <a href="#">Promosi</a>
+        <a href="#">Lokasi Toko</a>
+    </div>
 
-        
-        <!--Membuat Border-->
-        <div style="
-        padding: 15px; 
-        background-color: green;
-        border-radius: 20px;
-        height: 250px;">
-        
-        <P style="color: lime;">EDISI MINGGU INI</P>
-        <h1 style="color: white;">Kesegran Kebun</h1>
-        <h1 style="color: white;">Langsung ke Meja</h1>
+    <input type="text" placeholder="Cari bahan segar pilihan..." class="search">
 
-        <p style="color: whitesmoke;">Nikmati kurasi bahan organik terbaik dengan</p>
-        <p style="color: whitesmoke;">Potongan hingga 40% khusus member hari ini</p>
-        </div>
+    <div class="icons">
+        🛒 👤
+    </div>
+</div>
 
-        <h1>Kategori Pilihan</h1>
-        <p>Eksplorasi kurasi produk berdasarkan kebutuhan anda</p>
+<!-- HERO -->
+<div class="section-promo">
+    <p class="tag">EDISI MINGGU INI</p>
+    <h1>Kesegaran Kebun <br> Langsung ke Meja</h1>
+    <p>Nikmati bahan organik terbaik dengan diskon hingga 40%</p>
 
-        <!--Buat tabel Kategori-->
-        <table width="100%">
-            <tr>
+    <div class="btn-group">
+        <button class="btn-primary">Belanja Sekarang</button>
+        <button class="btn-secondary">Lihat Katalog</button>
+    </div>
+</div>
 
-                <td align="center">
-                    🍴
-                    <p>Makanan</p>
-                </td>
+<!-- KATEGORI -->
+<h2>Kategori Pilihan</h2>
+<p class="subtitle">Eksplorasi produk berdasarkan kebutuhan Anda</p>
 
-                <td align="center">
-                    🍹
-                    <p>Minuman</p>
-                </td>
+<div class="kategori">
+    <div class="card">🍴<p>Makanan</p></div>
+    <div class="card">🍹<p>Minuman</p></div>
+    <div class="card">🧴<p>Perawatan Tubuh</p></div>
+    <div class="card">🏠<p>Kebutuhan Rumah</p></div>
+</div>
 
-                <td align="center">
-                    🧴
-                    <p>Perawatan Tubuh</p>
-                </td>
+<!-- PRODUK -->
+<div class="produk-header">
+    <h2>Rekomendasi Pekan Ini</h2>
+    <a href="#">Lihat Semua →</a>
+</div>
 
-                <td align="center">
-                    🏠
-                    <p>Kebutuhan Rumah</p>
-                </td>
+<div class="produk">
+    <div class="produk-card">
+        <div class="badge">HEMAT</div>
+        🥑
+        <p>Alpukat</p>
+        <h4>Rp24.500</h4>
+        <button>+ Keranjang</button>
+    </div>
 
-            </tr>
-        </table>
-        <br><br><br><br><br>
-        <h1>Rekomendasi pekan ini</h1>
-        <p>Produk terbaik yang dipilih langsung oleh kurator kami</p>
+    <div class="produk-card">
+        🥛
+        <p>Susu</p>
+        <h4>Rp18.900</h4>
+        <button>+ Keranjang</button>
+    </div>
 
-        <!--Buat tabel Rekomendasi-->
-        <table width="100%">
-            <tr>
+    <div class="produk-card">
+        <div class="badge">TERLARIS</div>
+        🍵
+        <p>Green Tea</p>
+        <h4>Rp45.000</h4>
+        <button>+ Keranjang</button>
+    </div>
 
-                <td align="center">
-                    🥑
-                    <p>Alpukat</p>
-                </td>
+    <div class="produk-card">
+        🍯
+        <p>Madu</p>
+        <h4>Rp82.000</h4>
+        <button>+ Keranjang</button>
+    </div>
 
-                <td align="center">
-                    🥛
-                    <p>Susu</p>
-                </td>
+    <div class="produk-card">
+        <div class="badge">BARU</div>
+        🥗
+        <p>Salad</p>
+        <h4>Rp32.000</h4>
+        <button>+ Keranjang</button>
+    </div>
+</div>
 
-                <td align="center">
-                    🍵
-                    <p>Green tea</p>
-                </td>
+<!-- INSPIRE -->
+<div class="inspire">
+    <div>
+        <h2>Inspirasi Dapur dari Grocer</h2>
+        <p>Dapatkan resep & tips setiap minggu</p>
 
-                <td align="center">
-                    🍯
-                    <p>Madu</p>
-                </td>
+        <input type="text" placeholder="Email Anda">
+        <button>Berlangganan</button>
+    </div>
+</div>
 
-                <td align="center">
-                    🥗
-                    <p>Salad</p>
-                </td>
-            </tr>
-        </table>
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Groceria</p>
+</footer>
 
-        <br><br><br>
-        
-        <!--Membuat Border-->
-        <div style="
-        padding: 15px; 
-        background-color: #C1E1C1;
-        border-radius: 20px;
-        height: 250px;">
-        
-        <h1 style="color: white;">Inspirasi Dapur Dari Grocer</h1>
-        <p style="color: whitesmoke;">Dapatkan resep dan tips memilih bahan segar</p>
-        <p style="color: whitesmoke;">Setiap minggu langsung di kotak masuk anda</p>
-        </div>
-
-        <!-- FOOTER -->
-        <footer>
-            <p>
-                Prodi Teknik Informatika <br>
-                Universitas Esa Unggul <br>
-                Mata Kuliah Pemrograman Web <br>
-                Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
-                Nama Kelompok: Groceria<br>
-                Kelas: KH001<br>
-
-                Anggota Kelompok: <br>
-
-            > Rafi Adriyan Ramadhan <br>
-            > Raffa Nugraha <br>
-            > M. Rafi Adhiya
-            </p>
-        </footer>
-    </body>
-
+</body>
 </html>
