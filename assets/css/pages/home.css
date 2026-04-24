@@ -173,3 +173,8 @@ footer {
     margin-top: 40px;
     color: gray;
 }
+
+.klik-animasi {
+    transform: scale(0.9);
+    transition: 0.2s;
+}
