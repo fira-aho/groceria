@@ -1,36 +1,47 @@
 function cekPromo() {
-        var kode = prompt("Silahkan masukkan kode promo Anda:", "");
 
-        var elemenDiskon = document.querySelectorAll(".row.discount span")[1];
-        var elemenTotal = document.querySelectorAll(".total span")[1];
+    // Munculkan popup input promo
+    let kode = prompt("Silahkan masukkan kode promo Anda:");
 
-        if (kode == "GROCERIA2026") {
-            // 1. Ambil teks total harga saat ini dari layar
-            var teksTotalLama = elemenTotal.textContent;
+    // Ambil elemen total dan diskon
+    let elemenDiskon = document.querySelectorAll(".row.discount span")[1];
+    let elemenTotal = document.getElementById("total-price");
 
-            // 2. Bersihkan huruf "Rp " dan titik agar jadi angka murni (String ke Integer)
-            var angkaTotalLama = parseInt(teksTotalLama.replace(/[^0-9]/g, ""));
+    // Jika kode benar
+    if (kode === "GROCERIA2026") {
 
-            // 3. Proses Aritmatika
-            var angkaTotalBaru = angkaTotalLama - 10000;
+        // Ambil angka total lama
+        let totalLama = 83000;
 
-            // 4. Kembalikan angka tersebut jadi format Rupiah
-            var teksTotalBaru = "Rp " + angkaTotalBaru.toLocaleString("id-ID").replace(/,/g, '.');
+        // Tambahan diskon 10rb
+        let totalBaru = totalLama - 10000;
 
-            // 5. Update hasilnya ke layar
-            elemenDiskon.textContent = "-Rp 15.000"; // Ubah visual teks diskon
-            elemenTotal.textContent = teksTotalBaru; // Update teks harga dengan hasil aritmatika
+        // Ubah tampilan
+        elemenDiskon.textContent = "-Rp 15.000";
 
-            // Efek visual tambahan
-            elemenDiskon.style.color = "green";
-            elemenTotal.style.color = "green";
-            
-            alert("Selamat! Anda mendapatkan tambahan diskon Rp 10.000.");
-        } 
-        else if (kode == "" || kode == null) {
-            alert("Anda belum memasukkan kode apapun.");
-        } 
-        else {
-            alert("Maaf, kode promo tidak valid.");
-        }
+        elemenTotal.textContent =
+            "Rp " + totalBaru.toLocaleString("id-ID");
+
+        // Efek visual
+        elemenDiskon.style.color = "green";
+        elemenTotal.style.color = "green";
+
+        alert("Promo berhasil digunakan!");
+
     }
+
+    // Jika kosong
+    else if (kode === "" || kode === null) {
+
+        alert("Anda belum memasukkan kode.");
+
+    }
+
+    // Jika salah
+    else {
+
+        alert("Kode promo tidak valid.");
+
+    }
+
+}

@@ -2,39 +2,51 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - Groceria</title>
 
-    <!-- CSS Khusus Cart -->
+    <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/pages/cart.css">
 </head>
+
 <body>
 
     <!-- ===== NAVBAR ===== -->
     <header class="navbar">
-        <div class="logo">Groceria</div>
+
+        <div class="logo">
+            Groceria
+        </div>
+
         <nav>
             <a href="#">Promosi</a>
             <a href="#">Lokasi Toko</a>
         </nav>
+
         <div class="icons">
             🛒 👤
         </div>
+
     </header>
 
 
     <!-- ===== CONTAINER ===== -->
     <main class="container">
 
-        <!-- ===== LEFT SIDE (LIST PRODUK) ===== -->
+        <!-- ===== LEFT SIDE ===== -->
         <section class="cart-left">
 
             <h2>Keranjang Belanja Anda</h2>
-            <p class="subtitle">Daftar belanjaan kurasi pilihan Anda untuk hari yang lebih segar.</p>
 
-            <!-- === ITEM 1 === -->
+            <p class="subtitle">
+                Daftar belanjaan kurasi pilihan Anda untuk hari yang lebih segar.
+            </p>
+
+
+            <!-- ===== ITEM 1 ===== -->
             <div class="cart-item">
-                <!-- Gambar produk -->
-                <img src="C:\xampp\htdocs\groceria\assets\img\bayam.jpg" alt="Bayam">
+
+                <img src="../assets/img/bayam.jpg" alt="Bayam">
 
                 <div class="item-info">
                     <h4>Bayam Organik Lokal</h4>
@@ -42,21 +54,23 @@
                     <span>Rp 12.500</span>
                 </div>
 
-                <!-- Quantity -->
                 <div class="qty">
                     <button>-</button>
                     <span>2</span>
                     <button>+</button>
                 </div>
 
-                <!-- Subtotal -->
-                <div class="subtotal">Rp 25.000</div>
+                <div class="subtotal">
+                    Rp 25.000
+                </div>
+
             </div>
 
 
-            <!-- === ITEM 2 === -->
+            <!-- ===== ITEM 2 ===== -->
             <div class="cart-item">
-                <img src="C:\xampp\htdocs\groceria\assets\img\susu.jpg" alt="Susu">
+
+                <img src="../assets/img/susu.jpg" alt="Susu">
 
                 <div class="item-info">
                     <h4>Susu Almond Murni</h4>
@@ -70,13 +84,17 @@
                     <button>+</button>
                 </div>
 
-                <div class="subtotal">Rp 45.000</div>
+                <div class="subtotal">
+                    Rp 45.000
+                </div>
+
             </div>
 
 
-            <!-- === ITEM 3 === -->
+            <!-- ===== ITEM 3 ===== -->
             <div class="cart-item">
-                <img src="C:\xampp\htdocs\groceria\assets\img\wortel.jpg" alt="Wortel">
+
+                <img src="../assets/img/wortel.jpg" alt="Wortel">
 
                 <div class="item-info">
                     <h4>Wortel Organik</h4>
@@ -90,45 +108,53 @@
                     <button>+</button>
                 </div>
 
-                <div class="subtotal">Rp 18.000</div>
+                <div class="subtotal">
+                    Rp 18.000
+                </div>
+
             </div>
 
 
-            <!-- === PROMO CODE === -->
+            <!-- ===== PROMO ===== -->
             <div class="promo-box">
+
                 <p>Ada kode promo?</p>
-                <a href="#" onclick="cekPromo()">Tambah Kode</a>
+
+                <a href="#" onclick="cekPromo()">
+                    Tambah Kode
+                </a>
+
             </div>
 
 
-            <!-- === REKOMENDASI === -->
+            <!-- ===== RECOMMENDATION ===== -->
             <h3>Lengkapi Belanjaan Anda</h3>
 
             <div class="recommendation">
 
                 <div class="card">
-                    <img src="C:\xampp\htdocs\groceria\assets\img\yogurt.jpg" alt="Yogurt">
+                    <img src="../assets/img/yogurt.jpg" alt="Yogurt">
                     <p>Greek Yogurt Berry</p>
                     <span>Rp 32.000</span>
                     <button>Tambah</button>
                 </div>
 
                 <div class="card">
-                    <img src="C:\xampp\htdocs\groceria\assets\img\alpukat.jpg" alt="Alpukat">
+                    <img src="../assets/img/alpukat.jpg" alt="Alpukat">
                     <p>Alpukat Mentega</p>
                     <span>Rp 15.500</span>
                     <button>Tambah</button>
                 </div>
 
                 <div class="card">
-                    <img src="C:\xampp\htdocs\groceria\assets\img\madu.jpg" alt="Madu">
+                    <img src="../assets/img/madu.jpg" alt="Madu">
                     <p>Madu Hutan</p>
                     <span>Rp 78.000</span>
                     <button>Tambah</button>
                 </div>
 
                 <div class="card">
-                    <img src="C:\xampp\htdocs\groceria\assets\img\apel.jpg" alt="Apel">
+                    <img src="../assets/img/apel.jpg" alt="Apel">
                     <p>Apel Fuji</p>
                     <span>Rp 12.000</span>
                     <button>Tambah</button>
@@ -140,25 +166,30 @@
 
 
 
-        <!-- ===== RIGHT SIDE (SUMMARY + BUDGET) ===== -->
+        <!-- ===== RIGHT SIDE ===== -->
         <aside class="cart-right">
 
-            <!-- === BUDGET CONTROL === -->
+            <!-- ===== BUDGET ===== -->
             <div class="budget-box">
+
                 <h4>Atur Budget Anda</h4>
+
                 <p>Rp 100.000</p>
 
-                <!-- Progress bar -->
                 <div class="progress">
                     <div class="progress-fill"></div>
                 </div>
 
-                <small>Digunakan Rp 83.000 dari Rp 100.000</small>
+                <small>
+                    Digunakan Rp 83.000 dari Rp 100.000
+                </small>
+
             </div>
 
 
-            <!-- === SUMMARY === -->
+            <!-- ===== SUMMARY ===== -->
             <div class="summary">
+
                 <h3>Ringkasan Belanja</h3>
 
                 <div class="row">
@@ -180,39 +211,46 @@
 
                 <div class="total">
                     <span>Total Harga</span>
-                    <span>Rp 83.000</span>
+                    <span id="total-price">Rp 83.000</span>
                 </div>
 
-                <a href="C:\xampp\htdocs\groceria\pages\checkout.html">
-                <button class="checkout-btn">Lanjut ke Checkout →</button>
+                <a href="checkout.html">
+                    <button class="checkout-btn">
+                        Lanjut ke Checkout →
+                    </button>
                 </a>
+
             </div>
 
         </aside>
 
     </main>
 
+
+
     <!-- ===== FOOTER ===== -->
-<footer class="footer">
-    <p>
-        Prodi Teknik Informatika <br>
-        Universitas Esa Unggul <br>
-        Mata Kuliah Pemrograman Web <br>
-        Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
-        Nama Kelompok: Groceria<br>
-        Kelas: KH001<br><br>
+    <footer class="footer">
 
-        <strong>Anggota Kelompok:</strong><br>
+        <p>
+            Prodi Teknik Informatika <br>
+            Universitas Esa Unggul <br>
+            Mata Kuliah Pemrograman Web <br>
+            Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
+            Nama Kelompok: Groceria<br>
+            Kelas: KH001<br><br>
 
-        &gt; Rafi Adriyan Ramadhan <br>
-        &gt; Raffa Nugraha <br>
-        &gt; M. Rafi Adhiya
-    </p>
+            <strong>Anggota Kelompok:</strong><br>
 
+            &gt; Rafi Adriyan Ramadhan <br>
+            &gt; Raffa Nugraha <br>
+            &gt; M. Rafi Adhiya
+        </p>
+
+    </footer>
+
+
+    <!-- JS -->
     <script src="../assets/js/modules/cart.js"></script>
-
-</body>
-</html>
 
 </body>
 </html>
