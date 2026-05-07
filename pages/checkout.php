@@ -1,3 +1,32 @@
+<?php
+
+include "../config/database.php";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $nama = $_POST['nama_lengkap'];
+    $telp = $_POST['no_telepon'];
+    $alamat = $_POST['alamat'];
+
+    $query = "INSERT INTO checkout (
+        nama_lengkap,
+        no_telepon,
+        alamat
+    )
+
+    VALUES (
+        '$nama',
+        '$telp',
+        '$alamat'
+    )";
+
+    mysqli_query($conn, $query);
+
+    echo "<script>alert('Data berhasil disimpan!')</script>";
+}
+
+?>
+
 <!doctype html>
 <html lang="id">
   <head>
@@ -25,16 +54,27 @@
         <h3>🚚 Informasi Pengiriman</h3>
 
         <!-- FORM -->
-        <form onsubmit="return validateForm();">
+        <form method="POST" onsubmit="return validateForm();">
           <p>Nama Lengkap</p>
-          <input type="text" id="nama" placeholder="Masukkan nama penerima" />
+          <input
+            type="text"
+            id="nama"
+            name="nama_lengkap"
+            placeholder="Masukkan nama penerima"
+            />
 
           <p>Nomor Telepon</p>
-          <input type="text" id="telp" placeholder="08xx xxxx xxxx" />
+          <input 
+            type="text" 
+            id="telp" 
+            name="no_telepon"
+            placeholder="08xx xxxx xxxx" 
+            />
 
           <p>Alamat Lengkap</p>
           <textarea
             id="alamat"
+            name="alamat"
             rows="4"
             placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"
           ></textarea>
@@ -42,6 +82,7 @@
           <p>Catatan (Opsional)</p>
           <input
             type="text"
+            name="catatan"
             placeholder="Contoh: Titip di satpam, tetangga atau warna pagar"
           />
 
@@ -119,21 +160,21 @@
 
         if (nama === "") {
           alert("Nama belum diisi");
-          return false;
+          return true;
         }
 
         if (telp === "") {
           alert("Nomor telepon belum diisi");
-          return false;
+          return true;
         }
 
         if (alamat === "") {
           alert("Alamat belum diisi");
-          return false;
+          return true;
         }
 
         alert("Pesanan diproses!");
-        return false; // biar ga reload
+        return true; // biar ga reload
       }
     </script>
   </body>
