@@ -25,6 +25,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Jika data ditemukan
     if (mysqli_num_rows($result) > 0) {
+     // Simpan riwayat login
+    $insertHistory = "INSERT INTO login_history (email)
+                      VALUES ('$email')";
+
+    mysqli_query($conn, $insertHistory);
 
         echo "<script>
                 alert('Login berhasil!');
