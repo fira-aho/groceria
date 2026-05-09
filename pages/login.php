@@ -1,36 +1,43 @@
 <?php
 
-// Koneksi database
-$conn = mysqli_connect("localhost", "root", "", "groceria");
+// ===== KONEKSI DATABASE =====
+include "../config/database.php";
+/** @var mysqli $conn */
 
-// Jika tombol login ditekan
-if(isset($_POST['login'])){
+// ===== PROSES LOGIN =====
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
+    // Ambil data form
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Cek akun ke database
-    $query = mysqli_query($conn,
-        "SELECT * FROM users
-         WHERE email='$email'
-         AND password='$password'"
-    );
+    // Query cek user
+    $query = "SELECT * FROM users
+              WHERE email='$email'
+              AND password='$password'";
 
-    // kalo akun ditemukan
-    if(mysqli_num_rows($query) > 0){
+    $result = mysqli_query($conn, $query);
 
-    // Tambah riwayat login
-    mysqli_query($conn,
-        "INSERT INTO login_history (email)
-         VALUES ('$email')"
-    );
+    // Jika berhasil login
+    if (mysqli_num_rows($result) > 0) {
 
-    echo "<script>alert('Login berhasil');</script>";
+        echo "<script>
+                alert('Login berhasil!');
+                window.location.href='../index.php';
+              </script>";
 
- }
+    } else {
+
+        echo "<script>
+                alert('Email atau password salah!');
+              </script>";
+
+    }
+
 }
 
 ?>
+
 
 <!DOCTYPE html>
 <html lang="id">
@@ -39,41 +46,43 @@ if(isset($_POST['login'])){
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login - Groceria</title>
 
     <!-- CSS -->
-    <link rel="stylesheet"
-          href="../assets/css/pages/login.css">
+    <link rel="stylesheet" href="../assets/css/pages/login.css">
 
 </head>
 
 <body>
 
+    <!-- ===== CONTAINER ===== -->
     <main class="login-container">
 
-        <!-- LEFT -->
+
+        <!-- ===== LEFT SIDE ===== -->
         <section class="login-left">
 
-            <img src="../assets/img/login-banner.jpg"
-                 alt="Groceria Login">
+            <img src="../assets/img/login-banner.jpg" alt="Login">
 
         </section>
 
-        <!-- RIGHT -->
+
+        <!-- ===== RIGHT SIDE ===== -->
         <section class="login-right">
 
             <h1>Selamat Datang</h1>
 
             <p>
-                Masuk ke akun Groceria Anda
+                Login untuk melanjutkan belanja sehat bersama Groceria.
             </p>
 
-            <!-- FORM -->
+
+            <!-- ===== FORM ===== -->
             <form method="POST">
 
+                <!-- Email -->
                 <label>Email</label>
 
                 <input
@@ -83,6 +92,8 @@ if(isset($_POST['login'])){
                     required
                 >
 
+
+                <!-- Password -->
                 <label>Password</label>
 
                 <input
@@ -92,11 +103,27 @@ if(isset($_POST['login'])){
                     required
                 >
 
-                <button type="submit" name="login">
+
+                <!-- Button -->
+                <button type="submit">
+
                     Login
+
                 </button>
 
             </form>
+
+
+            <!-- Register Link -->
+            <div class="register-link">
+
+                Belum punya akun?
+
+                <a href="register.php">
+                    Daftar sekarang
+                </a>
+
+            </div>
 
         </section>
 

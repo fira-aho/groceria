@@ -1,6 +1,7 @@
 <?php
 
 include "../config/database.php";
+/** @var mysqli $conn */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 

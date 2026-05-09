@@ -1,25 +1,20 @@
 <?php
 
 // ===== KONEKSI DATABASE =====
-$conn = mysqli_connect("localhost", "root", "", "groceria");
-
-// ===== CEK KONEKSI =====
-if (!$conn) {
-    die("Koneksi gagal: " . mysqli_connect_error());
-}
-
+include "../config/database.php";
+/** @var mysqli $conn */
 
 // ===== PROSES REGISTER =====
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // Ambil data form
+    // Ambil data dari form
     $nama = $_POST['nama'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $confirm = $_POST['confirm_password'];
+    $confirm_password = $_POST['confirm_password'];
 
     // Validasi password
-    if ($password != $confirm) {
+    if ($password != $confirm_password) {
 
         echo "<script>
                 alert('Konfirmasi password tidak sesuai!');
@@ -27,25 +22,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     } else {
 
-        // Query INSERT
-        $query = "INSERT INTO users (nama, email, password)
-                  VALUES ('$nama', '$email', '$password')";
+        // Cek email sudah ada atau belum
+        $cek = mysqli_query($conn,
+            "SELECT * FROM users WHERE email='$email'"
+        );
 
-        // Jalankan query
-        $result = mysqli_query($conn, $query);
-
-        // Jika berhasil
-        if ($result) {
+        if (mysqli_num_rows($cek) > 0) {
 
             echo "<script>
-                    alert('Register berhasil!');
+                    alert('Email sudah digunakan!');
                   </script>";
 
         } else {
 
-            echo "<script>
-                    alert('Register gagal!');
-                  </script>";
+            // Query insert
+            $query = "INSERT INTO users (nama, email, password)
+                      VALUES ('$nama', '$email', '$password')";
+
+            $result = mysqli_query($conn, $query);
+
+            // Jika berhasil
+            if ($result) {
+
+                echo "<script>
+                        alert('Register berhasil!');
+                        window.location.href='login.php';
+                      </script>";
+
+            } else {
+
+                echo "<script>
+                        alert('Register gagal!');
+                      </script>";
+
+            }
 
         }
 
@@ -62,10 +72,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Register - Groceria</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/pages/register.css">
 
 </head>
@@ -76,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <main class="register-container">
 
 
-        <!-- ===== LEFT ===== -->
+        <!-- ===== LEFT SIDE ===== -->
         <section class="register-left">
 
             <img src="../assets/img/register-banner.jpg" alt="Register">
@@ -84,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
 
 
-        <!-- ===== RIGHT ===== -->
+        <!-- ===== RIGHT SIDE ===== -->
         <section class="register-right">
 
             <h1>Buat Akun Baru</h1>
@@ -130,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 >
 
 
-                <!-- Confirm Password -->
+                <!-- Konfirmasi Password -->
                 <label>Konfirmasi Password</label>
 
                 <input
@@ -143,16 +155,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 <!-- Button -->
                 <button type="submit">
+
                     Register
+
                 </button>
 
             </form>
 
 
-            <!-- Login -->
+            <!-- Login Link -->
             <div class="login-link">
 
                 Sudah punya akun?
+
                 <a href="login.php">
                     Login sekarang
                 </a>

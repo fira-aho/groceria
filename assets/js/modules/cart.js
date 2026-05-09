@@ -1,47 +1,212 @@
-function cekPromo() {
+document.addEventListener("DOMContentLoaded", function () {
 
-    // Munculkan popup input promo
-    let kode = prompt("Silahkan masukkan kode promo Anda:");
+    // ===== BUDGET =====
+    const budget = 100000;
 
-    // Ambil elemen total dan diskon
-    let elemenDiskon = document.querySelectorAll(".row.discount span")[1];
-    let elemenTotal = document.getElementById("total-price");
 
-    // Jika kode benar
-    if (kode === "GROCERIA2026") {
+    // ===== FORMAT RUPIAH =====
+    function formatRupiah(angka) {
 
-        // Ambil angka total lama
-        let totalLama = 83000;
-
-        // Tambahan diskon 10rb
-        let totalBaru = totalLama - 10000;
-
-        // Ubah tampilan
-        elemenDiskon.textContent = "-Rp 15.000";
-
-        elemenTotal.textContent =
-            "Rp " + totalBaru.toLocaleString("id-ID");
-
-        // Efek visual
-        elemenDiskon.style.color = "green";
-        elemenTotal.style.color = "green";
-
-        alert("Promo berhasil digunakan!");
+        return angka.toLocaleString("id-ID");
 
     }
 
-    // Jika kosong
-    else if (kode === "" || kode === null) {
 
-        alert("Anda belum memasukkan kode.");
+    // ===== UPDATE CART =====
+    function updateCart() {
+
+        let total = 0;
+
+
+        // Ambil semua item
+        const items =
+            document.querySelectorAll(".cart-item");
+
+
+        items.forEach(function(item) {
+
+            // ===== HARGA =====
+            let price =
+                Number(item.getAttribute("data-price"));
+
+            if (isNaN(price)) {
+                price = 0;
+            }
+
+
+            // ===== QTY =====
+            const qtyElement =
+                item.querySelector(".qty-value");
+
+            let qty =
+                Number(qtyElement.innerText);
+
+            if (isNaN(qty)) {
+                qty = 1;
+            }
+
+
+            // ===== SUBTOTAL =====
+            let subtotal =
+                price * qty;
+
+
+            // Update subtotal
+            const subtotalElement =
+                item.querySelector(".subtotal-value");
+
+            subtotalElement.innerText =
+                formatRupiah(subtotal);
+
+
+            // Tambah total
+            total += subtotal;
+
+        });
+
+
+        // ===== UPDATE TOTAL =====
+        const totalPrice =
+            document.getElementById("total-price");
+
+        totalPrice.innerText =
+            "Rp " + formatRupiah(total);
+
+
+        // ===== UPDATE PROGRESS =====
+        const progress =
+            document.querySelector(".progress-fill");
+
+        let percent =
+            (total / budget) * 100;
+
+        progress.style.width =
+            percent + "%";
+
+
+        // ===== UPDATE INFO =====
+        const budgetInfo =
+            document.getElementById("budget-info");
+
+        budgetInfo.innerText =
+            "Digunakan Rp " +
+            formatRupiah(total) +
+            " dari Rp " +
+            formatRupiah(budget);
+
+
+        // ===== WARNING =====
+        const warning =
+            document.getElementById("budget-warning");
+
+
+        if (total > budget) {
+
+            progress.style.background =
+                "red";
+
+            warning.innerText =
+                "Budget melebihi batas!";
+
+            warning.style.color =
+                "red";
+
+        }
+
+        else {
+
+            progress.style.background =
+                "green";
+
+            warning.innerText =
+                "Budget masih aman.";
+
+            warning.style.color =
+                "green";
+
+        }
 
     }
 
-    // Jika salah
-    else {
 
-        alert("Kode promo tidak valid.");
+    // ===== BUTTON PLUS =====
+    const plusButtons =
+        document.querySelectorAll(".plus-btn");
+
+
+    plusButtons.forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+            const qtyElement =
+                this.parentElement.querySelector(".qty-value");
+
+            let qty =
+                Number(qtyElement.innerText);
+
+            qty++;
+
+            qtyElement.innerText = qty;
+
+            updateCart();
+
+        });
+
+    });
+
+
+    // ===== BUTTON MINUS =====
+    const minusButtons =
+        document.querySelectorAll(".minus-btn");
+
+
+    minusButtons.forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+            const qtyElement =
+                this.parentElement.querySelector(".qty-value");
+
+            let qty =
+                Number(qtyElement.innerText);
+
+            if (qty > 1) {
+
+                qty--;
+
+                qtyElement.innerText = qty;
+
+                updateCart();
+
+            }
+
+        });
+
+    });
+
+
+    // ===== PROMO =====
+    window.cekPromo = function() {
+
+        const kode =
+            prompt("Masukkan kode promo:");
+
+        if (kode === "GROCERIA2026") {
+
+            alert("Promo berhasil digunakan!");
+
+        }
+
+        else {
+
+            alert("Kode promo tidak valid.");
+
+        }
 
     }
 
-}
+
+    // ===== LOAD AWAL =====
+    updateCart();
+
+});

@@ -1,12 +1,38 @@
+<?php
+
+// ===== KONEKSI DATABASE =====
+include "../config/database.php";
+/** @var mysqli $conn */
+
+// ===== AMBIL DATA CART =====
+$query = "SELECT * FROM cart";
+
+$result = mysqli_query($conn, $query);
+
+
+// ===== CEK CART KOSONG =====
+if (mysqli_num_rows($result) == 0) {
+
+    header("Location: empty.php");
+
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Cart - Groceria</title>
 
-    <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/pages/cart.css">
+
 </head>
 
 <body>
@@ -15,12 +41,27 @@
     <header class="navbar">
 
         <div class="logo">
-            Groceria
+
+            <a href="../index.php">
+                Groceria
+            </a>
+
         </div>
 
         <nav>
-            <a href="#">Promosi</a>
-            <a href="#">Lokasi Toko</a>
+
+            <a href="../index.php">
+                Home
+            </a>
+
+            <a href="cart.php">
+                Cart
+            </a>
+
+            <a href="login.php">
+                Login
+            </a>
+
         </nav>
 
         <div class="icons">
@@ -30,10 +71,12 @@
     </header>
 
 
+
     <!-- ===== CONTAINER ===== -->
     <main class="container">
 
-        <!-- ===== LEFT SIDE ===== -->
+
+        <!-- ===== LEFT ===== -->
         <section class="cart-left">
 
             <h2>Keranjang Belanja Anda</h2>
@@ -43,76 +86,65 @@
             </p>
 
 
-            <!-- ===== ITEM 1 ===== -->
-            <div class="cart-item">
+            <!-- ===== LOOP CART ===== -->
+            <?php while($row = mysqli_fetch_assoc($result)) { ?>
 
-                <img src="../assets/img/bayam.jpg" alt="Bayam">
+            <div
+                class="cart-item"
+                data-price="<?php echo $row['price']; ?>"
+            >
 
+                <!-- Gambar -->
+                <img
+                    src="../assets/img/<?php echo $row['image']; ?>"
+                    alt="Produk"
+                >
+
+
+                <!-- Info -->
                 <div class="item-info">
-                    <h4>Bayam Organik Lokal</h4>
-                    <p>500g • Kebun Senang</p>
-                    <span>Rp 12.500</span>
+
+                    <h4>
+                        <?php echo $row['product_name']; ?>
+                    </h4>
+
+                    <span>
+                        Rp <?php echo number_format($row['price'], 0, ',', '.'); ?>
+                    </span>
+
                 </div>
 
+
+                <!-- Quantity -->
                 <div class="qty">
-                    <button>-</button>
-                    <span>2</span>
-                    <button>+</button>
+
+                    <button class="minus-btn">
+                        -
+                    </button>
+
+                    <span class="qty-value">
+                        <?php echo $row['qty']; ?>
+                    </span>
+
+                    <button class="plus-btn">
+                        +
+                    </button>
+
                 </div>
 
+
+                <!-- Subtotal -->
                 <div class="subtotal">
-                    Rp 25.000
+
+                    Rp <span class="subtotal-value">
+                        <?php echo number_format($row['subtotal'], 0, ',', '.'); ?>
+                    </span>
+
                 </div>
 
             </div>
 
-
-            <!-- ===== ITEM 2 ===== -->
-            <div class="cart-item">
-
-                <img src="../assets/img/susu.jpg" alt="Susu">
-
-                <div class="item-info">
-                    <h4>Susu Almond Murni</h4>
-                    <p>1L • Tanpa Gula</p>
-                    <span>Rp 45.000</span>
-                </div>
-
-                <div class="qty">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
-                </div>
-
-                <div class="subtotal">
-                    Rp 45.000
-                </div>
-
-            </div>
-
-
-            <!-- ===== ITEM 3 ===== -->
-            <div class="cart-item">
-
-                <img src="../assets/img/wortel.jpg" alt="Wortel">
-
-                <div class="item-info">
-                    <h4>Wortel Organik</h4>
-                    <p>500g • Grade A</p>
-                    <span>Rp 18.000</span>
-                </div>
-
-                <div class="qty">
-                    <button>-</button>
-                    <span>1</span>
-                    <button>+</button>
-                </div>
-
-                <div class="subtotal">
-                    Rp 18.000
-                </div>
-
-            </div>
+            <?php } ?>
 
 
             <!-- ===== PROMO ===== -->
@@ -127,37 +159,48 @@
             </div>
 
 
-            <!-- ===== RECOMMENDATION ===== -->
+
+            <!-- ===== REKOMENDASI ===== -->
             <h3>Lengkapi Belanjaan Anda</h3>
 
             <div class="recommendation">
 
                 <div class="card">
+
                     <img src="../assets/img/yogurt.jpg" alt="Yogurt">
+
                     <p>Greek Yogurt Berry</p>
+
                     <span>Rp 32.000</span>
+
                     <button>Tambah</button>
+
                 </div>
 
+
                 <div class="card">
+
                     <img src="../assets/img/alpukat.jpg" alt="Alpukat">
+
                     <p>Alpukat Mentega</p>
+
                     <span>Rp 15.500</span>
+
                     <button>Tambah</button>
+
                 </div>
 
+
                 <div class="card">
+
                     <img src="../assets/img/madu.jpg" alt="Madu">
-                    <p>Madu Hutan</p>
-                    <span>Rp 78.000</span>
-                    <button>Tambah</button>
-                </div>
 
-                <div class="card">
-                    <img src="../assets/img/apel.jpg" alt="Apel">
-                    <p>Apel Fuji</p>
-                    <span>Rp 12.000</span>
+                    <p>Madu Hutan</p>
+
+                    <span>Rp 78.000</span>
+
                     <button>Tambah</button>
+
                 </div>
 
             </div>
@@ -166,25 +209,41 @@
 
 
 
-        <!-- ===== RIGHT SIDE ===== -->
+        <!-- ===== RIGHT ===== -->
         <aside class="cart-right">
+
 
             <!-- ===== BUDGET ===== -->
             <div class="budget-box">
 
-                <h4>Atur Budget Anda</h4>
+                <h4>Budget Control</h4>
 
-                <p>Rp 100.000</p>
+                <p id="budget-text">
+                    Rp 100.000
+                </p>
 
+
+                <!-- Progress -->
                 <div class="progress">
+
                     <div class="progress-fill"></div>
+
                 </div>
 
-                <small>
-                    Digunakan Rp 83.000 dari Rp 100.000
+
+                <!-- Info -->
+                <small id="budget-info">
+
+                    Digunakan Rp 0 dari Rp 100.000
+
                 </small>
 
+
+                <!-- Warning -->
+                <p id="budget-warning"></p>
+
             </div>
+
 
 
             <!-- ===== SUMMARY ===== -->
@@ -192,32 +251,30 @@
 
                 <h3>Ringkasan Belanja</h3>
 
-                <div class="row">
-                    <span>Total Barang</span>
-                    <span>Rp 88.000</span>
-                </div>
 
                 <div class="row">
-                    <span>Biaya Pengiriman</span>
-                    <span class="free">GRATIS</span>
+
+                    <span>Total Harga</span>
+
+                    <span id="total-price">
+                        Rp 0
+                    </span>
+
                 </div>
 
-                <div class="row discount">
-                    <span>Diskon Member</span>
-                    <span>-Rp 5.000</span>
-                </div>
 
                 <hr>
 
-                <div class="total">
-                    <span>Total Harga</span>
-                    <span id="total-price">Rp 83.000</span>
-                </div>
 
-                <a href="checkout.html">
+                <!-- Checkout -->
+                <a href="checkout.php">
+
                     <button class="checkout-btn">
+
                         Lanjut ke Checkout →
+
                     </button>
+
                 </a>
 
             </div>
@@ -232,6 +289,7 @@
     <footer class="footer">
 
         <p>
+
             Prodi Teknik Informatika <br>
             Universitas Esa Unggul <br>
             Mata Kuliah Pemrograman Web <br>
@@ -244,6 +302,7 @@
             &gt; Rafi Adriyan Ramadhan <br>
             &gt; Raffa Nugraha <br>
             &gt; M. Rafi Adhiya
+
         </p>
 
     </footer>

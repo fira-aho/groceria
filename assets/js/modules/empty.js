@@ -2,7 +2,6 @@ function mulaiBelanja() {
 
     alert("Selamat berbelanja di Groceria!");
 
-    // pindah halaman
-    window.location.href = "home.html";
+    window.location.href = "../index.php";
 
 }

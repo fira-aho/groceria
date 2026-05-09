@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Empty Cart - Groceria</title>
 
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/pages/empty.css">
+
 </head>
 
 <body>
@@ -14,46 +19,90 @@
     <!-- ===== NAVBAR ===== -->
     <header class="navbar">
 
+        <!-- Logo -->
         <div class="logo">
-            Groceria
+
+            <a href="../index.php">
+                Groceria
+            </a>
+
         </div>
 
+
+        <!-- Navigation -->
         <nav>
-            <a href="#">Promosi</a>
-            <a href="#">Lokasi Toko</a>
+
+            <a href="../index.php">
+                Home
+            </a>
+
+            <a href="cart.php">
+                Cart
+            </a>
+
+            <a href="login.php">
+                Login
+            </a>
+
         </nav>
 
+
+        <!-- Icons -->
         <div class="icons">
+
             🛒 👤
+
         </div>
 
     </header>
 
 
-    <!-- ===== EMPTY CART SECTION ===== -->
+
+    <!-- ===== EMPTY SECTION ===== -->
     <main class="empty-container">
 
-        <!-- Gambar Empty -->
-        <img src="../assets/img/empty-cart.jpg" alt="Empty Cart">
+        <!-- Gambar Empty Cart -->
+        <img
+            src="../assets/img/empty-cart.jpg"
+            alt="Empty Cart"
+        >
 
-        <h2>Keranjang Belanja Masih Kosong</h2>
 
+        <!-- Title -->
+        <h2>
+
+            Keranjang Belanja Masih Kosong
+
+        </h2>
+
+
+        <!-- Description -->
         <p>
+
             Yuk mulai tambahkan produk segar favorit Anda ke keranjang.
+
         </p>
 
-        <!-- Tombol -->
-        <button onclick="mulaiBelanja()" class="shop-btn">
+
+        <!-- Button -->
+        <button
+            onclick="mulaiBelanja()"
+            class="shop-btn"
+        >
+
             Mulai Belanja
+
         </button>
 
     </main>
+
 
 
     <!-- ===== FOOTER ===== -->
     <footer class="footer">
 
         <p>
+
             Prodi Teknik Informatika <br>
             Universitas Esa Unggul <br>
             Mata Kuliah Pemrograman Web <br>
@@ -66,6 +115,7 @@
             &gt; Rafi Adriyan Ramadhan <br>
             &gt; Raffa Nugraha <br>
             &gt; M. Rafi Adhiya
+
         </p>
 
     </footer>
