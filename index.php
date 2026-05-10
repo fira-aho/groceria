@@ -1,4 +1,7 @@
 
+<?php
+include 'koneksi_home.php';
+?>
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -59,43 +62,36 @@
 </div>
 
 <div class="produk">
-    <div class="produk-card">
-        <div class="badge">HEMAT</div>
-        🥑
-        <p>Alpukat</p>
-        <h4>Rp24.500</h4>
-        <button>+ Keranjang</button>
+    <?php
+    $query = mysqli_query($conn, "SELECT * FROM products_recomendations");
+
+    while($data = mysqli_fetch_array($query)) {
+    ?>
+
+        <div class="produk-card">
+
+            <div class="badge">
+                <?= $data['badge']; ?>
+            </div>
+
+            <img 
+                src="assets/img/<?= $data['gambar']; ?>" 
+                width="100"
+            >
+
+            <p><?= $data['nama_produk']; ?></p>
+
+            <h4>
+                Rp<?= number_format($data['harga']); ?>
+            </h4>
+
+            <button>+ Keranjang</button>
+
     </div>
 
-    <div class="produk-card">
-        🥛
-        <p>Susu</p>
-        <h4>Rp18.900</h4>
-        <button>+ Keranjang</button>
-    </div>
-
-    <div class="produk-card">
-        <div class="badge">TERLARIS</div>
-        🍵
-        <p>Green Tea</p>
-        <h4>Rp45.000</h4>
-        <button>+ Keranjang</button>
-    </div>
-
-    <div class="produk-card">
-        🍯
-        <p>Madu</p>
-        <h4>Rp82.000</h4>
-        <button>+ Keranjang</button>
-    </div>
-
-    <div class="produk-card">
-        <div class="badge">BARU</div>
-        🥗
-        <p>Salad</p>
-        <h4>Rp32.000</h4>
-        <button>+ Keranjang</button>
-    </div>
+<?php
+}
+?>
 </div>
 
 <!-- INSPIRE -->
