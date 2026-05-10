@@ -33,7 +33,9 @@ include 'config/database.php';
 
     <div class="icons">
 
+         <a href="pages/cart.php" class="cart-link">
         🛒
+        </a>
 
         <?php if(isset($_SESSION['user_id'])) { ?>
 
