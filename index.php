@@ -1,5 +1,6 @@
 
 <?php
+session_start();
 include 'config/database.php';
 ?>
 
@@ -29,8 +30,23 @@ include 'config/database.php';
     <input type="text" placeholder="Cari bahan segar pilihan..." class="search">
 
     <div class="icons">
-        🛒 👤
-    </div>
+
+    🛒
+
+    <?php if(isset($_SESSION['user_id'])) { ?>
+
+        <span>
+            👤 <?= $_SESSION['nama']; ?>
+        </span>
+
+    <?php } else { ?>
+
+        <a href="pages/login.php" class="signin-btn">
+            Sign In
+        </a>
+    <?php } ?>
+
+</div>
 </div>
 
 <!-- HERO -->

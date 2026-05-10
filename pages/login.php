@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 // ===== KONEKSI DATABASE =====
 include "../config/database.php";
@@ -21,10 +22,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Jika berhasil login
     if (mysqli_num_rows($result) > 0) {
 
+        $data = mysqli_fetch_assoc($result);
+
+        // Simpan session user
+        $_SESSION['user_id'] = $data['id'];
+        $_SESSION['nama'] = $data['nama'];
+        $_SESSION['email'] = $data['email'];
+
         echo "<script>
                 alert('Login berhasil!');
                 window.location.href='../index.php';
-              </script>";
+            </script>";
 
     } else {
 
