@@ -27,7 +27,9 @@ include 'config/database.php';
         <a href="#">Lokasi Toko</a>
     </div>
 
-    <input type="text" placeholder="Cari bahan segar pilihan..." class="search">
+    <a href="pages/search.php" class="search-btn">
+    Cari bahan segar pilihan...
+</a>
 
     <div class="icons">
 

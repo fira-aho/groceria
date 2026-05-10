@@ -210,3 +210,13 @@ footer {
 .profile-link:hover{
     color: #016B61;
 }
+
+.search-btn{
+    text-decoration: none;
+    background: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    color: gray;
+    width: 250px;
+    display: inline-block;
+}
