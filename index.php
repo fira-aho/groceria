@@ -69,6 +69,8 @@ include 'config/database.php';
     while($data = mysqli_fetch_array($query)) {
     ?>
 
+    <a href="pages/product_detail.php?id=<?= $data['id']; ?>" class="produk-link">
+
         <div class="produk-card">
 
             <div class="badge">
@@ -88,13 +90,14 @@ include 'config/database.php';
 
             <button>+ Keranjang</button>
 
-    </div>
+        </div>
+
+    </a>
 
 <?php
 }
 ?>
 </div>
-
 <!-- INSPIRE -->
 <div class="inspire">
     <div>

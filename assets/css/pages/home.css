@@ -3,7 +3,6 @@ body {
     margin: 0;
     padding: 20px;
     background: #f5f5f5;
-    
 }
 
 /* NAVBAR */
@@ -188,4 +187,15 @@ footer {
 .klik-animasi {
     transform: scale(0.9);
     transition: 0.2s;
+}
+
+.produk-link {
+    text-decoration: none;
+    color: inherit;
+    flex: 1;
+}
+
+.produk-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
 }
