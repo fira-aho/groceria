@@ -21,162 +21,166 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         '$alamat'
     )";
 
-    mysqli_query($conn, $query);
-
-    echo "<script>alert('Data berhasil disimpan!')</script>";
+    if (mysqli_query($conn, $query)) {
+        header("Location: success.php");
+        exit();
+    }
 }
 
 ?>
 
 <!doctype html>
 <html lang="id">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <title>Checkout</title>
-
-    <!-- FIX PATH CSS -->
     <link rel="stylesheet" href="../assets/css/pages/checkout.css" />
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="checkout-container">
-      <!-- KIRI -->
-      <div class="checkout-form">
-        <h2>🛒 Groceria</h2>
-        <p>Promosi | Lokasi Toko</p>
-        <hr />
 
-        <h1>Formulir Checkout 📋</h1>
-        <p>
-          Pastikan detail pesanan Anda sudah benar sebelum melanjutkan
-          pembayaran.
-        </p>
+        <!-- KIRI -->
+        <div class="checkout-form">
+            <h2>🛒 Groceria</h2>
+            <p>Promosi | Lokasi Toko</p>
+            <hr />
 
-        <h3>🚚 Informasi Pengiriman</h3>
+            <h1>Formulir Checkout 📋</h1>
+            <p>
+                Pastikan detail pesanan Anda sudah benar sebelum melanjutkan pembayaran.
+            </p>
 
-        <!-- FORM -->
-        <form method="POST" onsubmit="return validateForm();">
-          <p>Nama Lengkap</p>
-          <input
-            type="text"
-            id="nama"
-            name="nama_lengkap"
-            placeholder="Masukkan nama penerima"
-            />
+            <h3>🚚 Informasi Pengiriman</h3>
 
-          <p>Nomor Telepon</p>
-          <input 
-            type="text" 
-            id="telp" 
-            name="no_telepon"
-            placeholder="08xx xxxx xxxx" 
-            />
+            <form method="POST" onsubmit="return validateForm();">
 
-          <p>Alamat Lengkap</p>
-          <textarea
-            id="alamat"
-            name="alamat"
-            rows="4"
-            placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"
-          ></textarea>
+                <p>Nama Lengkap</p>
+                <input
+                    type="text"
+                    id="nama"
+                    name="nama_lengkap"
+                    placeholder="Masukkan nama penerima"
+                />
 
-          <p>Catatan (Opsional)</p>
-          <input
-            type="text"
-            name="catatan"
-            placeholder="Contoh: Titip di satpam, tetangga atau warna pagar"
-          />
+                <p>Nomor Telepon</p>
+                <input
+                    type="text"
+                    id="telp"
+                    name="no_telepon"
+                    placeholder="08xx xxxx xxxx"
+                />
 
-          <!-- ✅ BUTTON HARUS DI DALAM FORM -->
-          <button type="submit" class="pay-btn">✅ BAYAR SEKARANG</button>
-        </form>
+                <p>Alamat Lengkap</p>
+                <textarea
+                    id="alamat"
+                    name="alamat"
+                    rows="4"
+                    placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"
+                ></textarea>
 
-        <hr />
+                <p>Catatan (Opsional)</p>
+                <input
+                    type="text"
+                    name="catatan"
+                    placeholder="Contoh: Titip di satpam, tetangga atau warna pagar"
+                />
 
-        <h3>💳 Metode Pembayaran</h3>
+                <button type="submit" class="pay-btn">
+                    ✅ BAYAR SEKARANG
+                </button>
 
-        <div class="payment-options">
-          <button type="button">🏦 Transfer Bank</button>
-          <button type="button">📱 E-Wallet</button>
-          <button type="button">💵 Cash On Delivery</button>
+            </form>
+
+            <hr />
+
+            <h3>💳 Metode Pembayaran</h3>
+
+            <div class="payment-options">
+                <button type="button">🏦 Transfer Bank</button>
+                <button type="button">📱 E-Wallet</button>
+                <button type="button">💵 Cash On Delivery</button>
+            </div>
+
         </div>
-      </div>
 
-      <!-- KANAN -->
-      <div class="checkout-summary">
-        <h3>🧾 Ringkasan & Bayar</h3>
+        <!-- KANAN -->
+        <div class="checkout-summary">
+            <h3>🧾 Ringkasan & Bayar</h3>
 
-        <ul>
-          <li>
-            <span>🥑 Alpukat Mentega</span>
-            <span>Rp 78.000</span>
-          </li>
-          <li>
-            <span>🍞 Roti Sourdough</span>
-            <span>Rp 35.000</span>
-          </li>
-        </ul>
+            <ul>
+                <li>
+                    <span>🥑 Alpukat Mentega</span>
+                    <span>Rp 78.000</span>
+                </li>
 
-        <p class="row">
-          <span>Subtotal</span>
-          <span>Rp 113.000</span>
-        </p>
+                <li>
+                    <span>🍞 Roti Sourdough</span>
+                    <span>Rp 35.000</span>
+                </li>
+            </ul>
 
-        <p class="row">
-          <span>Ongkir</span>
-          <span>Rp 15.000</span>
-        </p>
+            <p class="row">
+                <span>Subtotal</span>
+                <span>Rp 113.000</span>
+            </p>
 
-        <h2 class="total">
-          <span>Total</span>
-          <span>Rp 128.000</span>
-        </h2>
+            <p class="row">
+                <span>Ongkir</span>
+                <span>Rp 15.000</span>
+            </p>
 
-        <p class="secure">🔒 Secure Checkout</p>
-      </div>
+            <h2 class="total">
+                <span>Total</span>
+                <span>Rp 128.000</span>
+            </h2>
+
+            <p class="secure">🔒 Secure Checkout</p>
+        </div>
+
     </div>
 
-    <!-- FOOTER -->
     <footer>
-      <p>
-        Prodi Teknik Informatika <br />
-        Universitas Esa Unggul <br />
-        Mata Kuliah Pemrograman Web <br />
-        Dosen Pengampu: DEWI SETIOWATII <br />
-        Nama Kelompok: Groceria<br />
-        Kelas: KH001<br /><br />
+        <p>
+            Prodi Teknik Informatika <br />
+            Universitas Esa Unggul <br />
+            Mata Kuliah Pemrograman Web <br />
+            Dosen Pengampu: DEWI SETIOWATII <br />
+            Nama Kelompok: Groceria <br />
+            Kelas: KH001 <br /><br />
 
-        Anggota:<br />
-        > Rafi Adriyan Ramadhan <br />
-        > Raffa Nugraha <br />
-        > M. Rafi Adhiya
-      </p>
+            Anggota:<br />
+            > Rafi Adriyan Ramadhan <br />
+            > Raffa Nugraha <br />
+            > M. Rafi Adhiya
+        </p>
     </footer>
 
     <script>
-      function validateForm() {
-        const nama = document.getElementById("nama").value.trim();
-        const telp = document.getElementById("telp").value.trim();
-        const alamat = document.getElementById("alamat").value.trim();
+        function validateForm() {
 
-        if (nama === "") {
-          alert("Nama belum diisi");
-          return true;
+            const nama = document.getElementById("nama").value.trim();
+            const telp = document.getElementById("telp").value.trim();
+            const alamat = document.getElementById("alamat").value.trim();
+
+            if (nama === "") {
+                alert("Nama belum diisi");
+                return false;
+            }
+
+            if (telp === "") {
+                alert("Nomor telepon belum diisi");
+                return false;
+            }
+
+            if (alamat === "") {
+                alert("Alamat belum diisi");
+                return false;
+            }
+
+            return true;
         }
-
-        if (telp === "") {
-          alert("Nomor telepon belum diisi");
-          return true;
-        }
-
-        if (alamat === "") {
-          alert("Alamat belum diisi");
-          return true;
-        }
-
-        alert("Pesanan diproses!");
-        return true; // biar ga reload
-      }
     </script>
-  </body>
+
+</body>
 </html>
