@@ -1,9 +1,12 @@
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <title>Groceria</title>
-    <link rel="stylesheet" href="C:\xampp\htdocs\groceria\assets\css\pages\home.css">
+
+    <link rel="stylesheet" type="text/css"
+    href="http://localhost/groceria/assets/css/pages/home.css?v=1">
 </head>
 
 

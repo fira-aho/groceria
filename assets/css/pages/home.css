@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 20px;
     background: #f5f5f5;
+    
 }
 
 /* NAVBAR */
@@ -35,11 +36,16 @@ body {
 
 /* HERO */
 .section-promo {
-    background: url("C:/xampp/htdocs/groceria/assets/img/1284104.jpg") center/cover;
+    background-image: url("/groceria/assets/img/1284104.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     padding: 50px;
     border-radius: 20px;
     color: white;
     margin-top: 20px;
+    min-height: 300px;
 }
 
 .tag {
@@ -146,10 +152,15 @@ body {
 
 /* INSPIRE */
 .inspire {
-    background: url("C:/xampp/htdocs/groceria/assets/img/kitchen.jpg") center/cover;
+    background-image: url("/groceria/assets/img/kitchen.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
     padding: 40px;
     border-radius: 20px;
     margin-top: 40px;
+    min-height: 250px;
 }
 
 .inspire input {
