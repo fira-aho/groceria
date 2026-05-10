@@ -4,6 +4,25 @@ session_start();
 include "../config/database.php";
 /** @var mysqli $conn */
 
+// INIT CART
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+/* 🔥 FIX: HAPUS DUPLIKAT BERDASARKAN NAMA PRODUK */
+$uniqueCart = [];
+$seen = [];
+
+foreach ($_SESSION['cart'] as $item) {
+    if (!in_array($item['name'], $seen)) {
+        $uniqueCart[] = $item;
+        $seen[] = $item['name'];
+    }
+}
+
+$cart = $uniqueCart;
+
+// HANDLE SUBMIT CHECKOUT
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nama = $_POST['nama_lengkap'];
@@ -17,9 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         nama_lengkap,
         no_telepon,
         alamat
-    )
-
-    VALUES (
+    ) VALUES (
         '$nama',
         '$telp',
         '$alamat'
@@ -36,9 +53,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <!doctype html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8" />
-    <title>Checkout</title>
-    <link rel="stylesheet" href="../assets/css/pages/checkout.css" />
+<meta charset="UTF-8" />
+<title>Checkout</title>
+<link rel="stylesheet" href="../assets/css/pages/checkout.css" />
 </head>
 
 <body>
@@ -54,55 +71,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <h1>Formulir Checkout 📋</h1>
 
-        <p>
-            Pastikan detail pesanan Anda sudah benar sebelum melanjutkan pembayaran.
-        </p>
+        <p>Pastikan detail pesanan Anda sudah benar sebelum melanjutkan pembayaran.</p>
 
         <h3>🚚 Informasi Pengiriman</h3>
 
         <form method="POST" onsubmit="return validateForm();">
 
             <p>Nama Lengkap</p>
-            <input
-                type="text"
-                id="nama"
-                name="nama_lengkap"
-                placeholder="Masukkan nama penerima"
-            />
+            <input type="text" id="nama" name="nama_lengkap" />
 
             <p>Nomor Telepon</p>
-            <input
-                type="text"
-                id="telp"
-                name="no_telepon"
-                placeholder="08xx xxxx xxxx"
-            />
+            <input type="text" id="telp" name="no_telepon" />
 
             <p>Alamat Lengkap</p>
-            <textarea
-                id="alamat"
-                name="alamat"
-                rows="4"
-                placeholder="Nama jalan, nomor rumah, kelurahan, kecamatan"
-            ></textarea>
+            <textarea id="alamat" name="alamat"></textarea>
 
+            <!-- CATATAN TETAP -->
             <p>Catatan (Opsional)</p>
-            <input
-                type="text"
-                name="catatan"
-                placeholder="Contoh: Titip di satpam, tetangga atau warna pagar"
-            />
+            <input type="text" name="catatan" placeholder="Catatan tambahan" />
 
-            <!-- hidden input buat simpan metode -->
-            <input
-                type="hidden"
-                id="metode"
-                name="metode_pembayaran"
-            />
+            <input type="hidden" id="metode" name="metode_pembayaran" />
 
-            <button type="submit" class="pay-btn">
-                ✅ BAYAR SEKARANG
-            </button>
+            <button type="submit" class="pay-btn">✅ BAYAR SEKARANG</button>
 
         </form>
 
@@ -112,17 +102,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="payment-options">
 
-            <button type="button" onclick="selectPayment(this)">
-                🏦 Transfer Bank
-            </button>
-
-            <button type="button" onclick="selectPayment(this)">
-                📱 E-Wallet
-            </button>
-
-            <button type="button" onclick="selectPayment(this)">
-                💵 Cash On Delivery
-            </button>
+            <button type="button" onclick="selectPayment(this)">🏦 Transfer Bank</button>
+            <button type="button" onclick="selectPayment(this)">📱 E-Wallet</button>
+            <button type="button" onclick="selectPayment(this)">💵 Cash On Delivery</button>
 
         </div>
 
@@ -134,30 +116,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <h3>🧾 Ringkasan & Bayar</h3>
 
         <ul>
-            <li>
-                <span>🥑 Alpukat Mentega</span>
-                <span>Rp 78.000</span>
-            </li>
+
+        <?php
+        $total = 0;
+        ?>
+
+        <?php if (count($cart) == 0): ?>
+            <li>Keranjang kosong</li>
+        <?php else: ?>
+
+            <?php foreach ($cart as $item): ?>
+
+            <?php
+            $price = (int) str_replace(['Rp', '.', ' '], '', $item['price']);
+            $total += $price;
+            ?>
 
             <li>
-                <span>🍞 Roti Sourdough</span>
-                <span>Rp 35.000</span>
+                <span>🛒 <?= $item['name'] ?> (x1)</span>
+                <span><?= $item['price'] ?></span>
             </li>
+
+            <?php endforeach; ?>
+
+        <?php endif; ?>
+
         </ul>
+
+        <?php
+        $ongkir = 15000;
+        $grandTotal = $total + $ongkir;
+        ?>
 
         <p class="row">
             <span>Subtotal</span>
-            <span>Rp 113.000</span>
+            <span>Rp <?= number_format($total, 0, ',', '.') ?></span>
         </p>
 
         <p class="row">
             <span>Ongkir</span>
-            <span>Rp 15.000</span>
+            <span>Rp <?= number_format($ongkir, 0, ',', '.') ?></span>
         </p>
 
         <h2 class="total">
             <span>Total</span>
-            <span>Rp 128.000</span>
+            <span>Rp <?= number_format($grandTotal, 0, ',', '.') ?></span>
         </h2>
 
         <p class="secure">🔒 Secure Checkout</p>
@@ -168,17 +171,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <footer>
     <p>
-        Prodi Teknik Informatika <br />
-        Universitas Esa Unggul <br />
-        Mata Kuliah Pemrograman Web <br />
-        Dosen Pengampu: DEWI SETIOWATII <br />
-        Nama Kelompok: Groceria <br />
-        Kelas: KH001 <br /><br />
-
-        Anggota:<br />
-        > Rafi Adriyan Ramadhan <br />
-        > Raffa Nugraha <br />
-        > M. Rafi Adhiya
+        Prodi Teknik Informatika - Universitas Esa Unggul <br>
+        Mata Kuliah Pemrograman Web <br>
+        Kelompok Groceria
     </p>
 </footer>
 
@@ -191,40 +186,23 @@ function validateForm() {
     const alamat = document.getElementById("alamat").value.trim();
     const metode = document.getElementById("metode").value.trim();
 
-    if (nama === "") {
-        alert("Nama belum diisi");
-        return false;
-    }
-
-    if (telp === "") {
-        alert("Nomor telepon belum diisi");
-        return false;
-    }
-
-    if (alamat === "") {
-        alert("Alamat belum diisi");
-        return false;
-    }
-
-    if (metode === "") {
-        alert("Pilih metode pembayaran");
-        return false;
-    }
+    if (nama === "") return alert("Nama belum diisi"), false;
+    if (telp === "") return alert("Nomor telepon belum diisi"), false;
+    if (alamat === "") return alert("Alamat belum diisi"), false;
+    if (metode === "") return alert("Pilih metode pembayaran"), false;
 
     return true;
 }
 
 function selectPayment(button) {
 
-    const buttons = document.querySelectorAll(".payment-options button");
-
-    buttons.forEach(btn => {
-        btn.style.backgroundColor = "";
+    document.querySelectorAll(".payment-options button").forEach(btn => {
+        btn.style.background = "";
         btn.style.color = "";
         btn.style.border = "";
     });
 
-    button.style.backgroundColor = "green";
+    button.style.background = "green";
     button.style.color = "white";
     button.style.border = "2px solid darkgreen";
 
