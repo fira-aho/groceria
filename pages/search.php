@@ -1,6 +1,25 @@
 <?php
+session_start();
 
 $kategori = isset($_GET['kategori']) ? $_GET['kategori'] : "Minuman";
+
+// INIT CART
+if (!isset($_SESSION['cart'])) {
+    $_SESSION['cart'] = [];
+}
+
+// HANDLE ADD TO CART
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
+
+    $_SESSION['cart'][] = [
+        "name" => $_POST['name'],
+        "img" => $_POST['img'],
+        "price" => $_POST['price']
+    ];
+
+    header("Location: cart.php");
+    exit;
+}
 
 // DATA PRODUK
 $allProducts = [
@@ -32,14 +51,13 @@ $allProducts = [
 ];
 
 $products = $allProducts[$kategori];
-
 ?>
 
 <!doctype html>
 <html lang="id">
 <head>
 <meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Groceria Search</title>
 
 <link rel="stylesheet" href="../assets/css/pages/search.css" />
@@ -51,8 +69,8 @@ $products = $allProducts[$kategori];
     background:white;
     position:absolute;
     width:300px;
-    z-index:99;
     border:1px solid #ddd;
+    z-index:10;
 }
 .suggestion-item {
     padding:10px;
@@ -75,7 +93,6 @@ $products = $allProducts[$kategori];
         <span>Lokasi Toko</span>
     </nav>
 
-    <!-- SEARCH -->
     <div class="search-wrapper" style="position:relative;">
         <input class="search-bar" id="searchInput" type="text" placeholder="Cari produk...">
         <div id="suggestions" class="suggestions"></div>
@@ -84,18 +101,13 @@ $products = $allProducts[$kategori];
 
 <div class="wrapper">
 
-<!-- SIDEBAR (TETAP UTUH, TIDAK DIHAPUS) -->
+<!-- SIDEBAR -->
 <aside class="sidebar">
 
 <h3>Kategori</h3>
 
-<a href="?kategori=Makanan" class="category <?= $kategori == 'Makanan' ? 'active' : '' ?>">
-Makanan
-</a>
-
-<a href="?kategori=Minuman" class="category <?= $kategori == 'Minuman' ? 'active' : '' ?>">
-Minuman
-</a>
+<a href="?kategori=Makanan" class="category <?= $kategori == 'Makanan' ? 'active' : '' ?>">Makanan</a>
+<a href="?kategori=Minuman" class="category <?= $kategori == 'Minuman' ? 'active' : '' ?>">Minuman</a>
 
 <div class="category">Perawatan Tubuh</div>
 <div class="category">Kebutuhan Rumah</div>
@@ -115,10 +127,8 @@ Minuman
 
 <p id="statusText">Ketik minimal 3 huruf untuk mencari produk</p>
 
-<!-- LOADING -->
 <div id="loading">Loading...</div>
 
-<!-- PRODUCTS -->
 <div class="products" id="products"></div>
 
 </section>
@@ -135,6 +145,7 @@ const products = document.getElementById("products");
 const loading = document.getElementById("loading");
 const statusText = document.getElementById("statusText");
 
+// DATA PHP → JS (AMAN)
 const data = [
 <?php foreach ($products as $p): ?>
 {
@@ -147,17 +158,13 @@ const data = [
 <?php endforeach; ?>
 ];
 
-// =====================
-// SEARCH INPUT
-// =====================
+// SEARCH
 input.addEventListener("input", function () {
 
     let value = this.value.toLowerCase();
     suggestions.innerHTML = "";
 
-    // reset UI
     products.style.display = "none";
-    loading.style.display = "none";
 
     if (value.length < 3) {
         statusText.innerText = "Ketik minimal 3 huruf untuk mencari produk";
@@ -170,9 +177,9 @@ input.addEventListener("input", function () {
         item.name.toLowerCase().includes(value)
     );
 
-    found.forEach(item => {
+    found.forEach((item, index) => {
         suggestions.innerHTML += `
-            <div class="suggestion-item" onclick='selectProduct(${JSON.stringify(item)})'>
+            <div class="suggestion-item" onclick="selectProduct(${index})">
                 ${item.name}
             </div>
         `;
@@ -180,10 +187,10 @@ input.addEventListener("input", function () {
 
 });
 
-// =====================
-// SELECT PRODUCT
-// =====================
-function selectProduct(item) {
+// SELECT PRODUCT (FIX AMAN TANPA JSON)
+function selectProduct(index) {
+
+    const item = data[index];
 
     input.value = item.name;
     suggestions.innerHTML = "";
@@ -194,7 +201,7 @@ function selectProduct(item) {
     setTimeout(() => {
 
         loading.style.display = "none";
-        products.style.display = "grid";
+        products.style.display = "block";
 
         products.innerHTML = `
             <div class="card">
@@ -207,12 +214,18 @@ function selectProduct(item) {
                     <div class="fill" style="width:${item.fill}"></div>
                 </div>
 
-                <button>Tambah ke Keranjang</button>
+                <form method="POST">
+                    <input type="hidden" name="name" value="${item.name}">
+                    <input type="hidden" name="img" value="${item.img}">
+                    <input type="hidden" name="price" value="${item.price}">
+                    <button type="submit" name="add_to_cart">
+                        Tambah ke Keranjang
+                    </button>
+                </form>
             </div>
         `;
 
-    }, 700);
-
+    }, 600);
 }
 
 </script>
