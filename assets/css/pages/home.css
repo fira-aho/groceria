@@ -199,3 +199,14 @@ footer {
     transform: translateY(-5px);
     transition: 0.3s;
 }
+
+.profile-link{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    margin-left: 15px;
+}
+
+.profile-link:hover{
+    color: #016B61;
+}

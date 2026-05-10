@@ -31,22 +31,23 @@ include 'config/database.php';
 
     <div class="icons">
 
-    🛒
+        🛒
 
-    <?php if(isset($_SESSION['user_id'])) { ?>
+        <?php if(isset($_SESSION['user_id'])) { ?>
 
-        <span>
-            👤 <?= $_SESSION['nama']; ?>
-        </span>
+            <a href="pages/profile.php" class="profile-link">
+                👤 <?= $_SESSION['nama']; ?>
+            </a>
 
-    <?php } else { ?>
+        <?php } else { ?>
 
-        <a href="pages/login.php" class="signin-btn">
-            Sign In
-        </a>
-    <?php } ?>
+            <a href="pages/login.php" class="signin-btn">
+                Sign In
+            </a>
 
-</div>
+        <?php } ?>
+
+    </div>
 </div>
 
 <!-- HERO -->
