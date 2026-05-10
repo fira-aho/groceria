@@ -1,7 +1,8 @@
 
 <?php
-include 'koneksi_home.php';
+include 'config/database.php';
 ?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
