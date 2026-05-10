@@ -9,6 +9,7 @@ body {
   background: #f7f7f7;
 }
 
+/* HEADER */
 header {
   height: 80px;
   background: white;
@@ -30,20 +31,49 @@ nav {
   gap: 20px;
 }
 
+/* SEARCH */
+.search-wrapper {
+  position: relative;
+}
+
 .search-bar {
   width: 350px;
   padding: 12px;
   border-radius: 12px;
   border: none;
   background: #eee;
+  outline: none;
 }
 
+.suggestions {
+  position: absolute;
+  top: 50px;
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  z-index: 999;
+}
+
+.suggestion-item {
+  padding: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.suggestion-item:hover {
+  background: #f5f5f5;
+}
+
+/* LAYOUT */
 .wrapper {
   display: flex;
   gap: 30px;
   padding: 40px;
 }
 
+/* SIDEBAR */
 .sidebar {
   width: 250px;
   background: white;
@@ -51,11 +81,23 @@ nav {
   border-radius: 16px;
 }
 
+.sidebar h3 {
+  margin-bottom: 10px;
+}
+
 .category {
+  display: block;
   padding: 14px;
   margin-top: 10px;
   border-radius: 10px;
   cursor: pointer;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.category:hover {
+  background: #f2f2f2;
 }
 
 .active {
@@ -64,6 +106,7 @@ nav {
   font-weight: bold;
 }
 
+/* BUDGET BOX */
 .budget-box {
   margin-top: 30px;
   background: #00a63e;
@@ -72,6 +115,11 @@ nav {
   border-radius: 16px;
 }
 
+.budget-box h2 {
+  margin: 10px 0;
+}
+
+/* MAIN */
 .main {
   flex: 1;
   background: white;
@@ -89,16 +137,23 @@ nav {
   margin-bottom: 30px;
 }
 
+/* PRODUCTS GRID */
 .products {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 25px;
 }
 
+/* CARD */
 .card {
   background: #fafafa;
   border-radius: 18px;
   padding: 18px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-5px);
 }
 
 .card img {
@@ -126,6 +181,7 @@ nav {
   font-weight: bold;
 }
 
+/* PROGRESS */
 .progress {
   height: 8px;
   background: #ddd;
@@ -139,6 +195,7 @@ nav {
   border-radius: 10px;
 }
 
+/* BUTTON */
 button {
   width: 100%;
   padding: 14px;
@@ -148,8 +205,38 @@ button {
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.3s;
 }
 
+button:hover {
+  background: #008c33;
+}
+
+/* LOADING */
+.loading {
+  text-align: center;
+  padding: 50px;
+  font-weight: bold;
+  color: #00a63e;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #ddd;
+  border-top: 4px solid #00a63e;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto auto 15px;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
