@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // ===== BUDGET =====
     const budget = 100000;
 
+    // ===== DISKON STATE =====
+    let discountPercent = 0;
 
     // ===== FORMAT RUPIAH =====
     function formatRupiah(angka) {
@@ -11,17 +13,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     // ===== UPDATE CART =====
     function updateCart() {
 
         let total = 0;
 
-
         // Ambil semua item
         const items =
             document.querySelectorAll(".cart-item");
-
 
         items.forEach(function(item) {
 
@@ -58,19 +57,27 @@ document.addEventListener("DOMContentLoaded", function () {
             subtotalElement.innerText =
                 formatRupiah(subtotal);
 
-
             // Tambah total
             total += subtotal;
 
         });
 
+        // ===== HITUNG DISKON =====
+        let discountAmount = total * discountPercent;
+        let finalTotal = total - discountAmount;
+
+        // Update elemen nominal diskon (contoh ID "discount-value")
+        const discountElement = document.getElementById("discount-value");
+        if (discountElement) {
+            discountElement.innerText = "- Rp " + formatRupiah(discountAmount);
+        }
 
         // ===== UPDATE TOTAL =====
         const totalPrice =
             document.getElementById("total-price");
 
         totalPrice.innerText =
-            "Rp " + formatRupiah(total);
+            "Rp " + formatRupiah(finalTotal);
 
 
         // ===== UPDATE PROGRESS =====
@@ -78,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.querySelector(".progress-fill");
 
         let percent =
-            (total / budget) * 100;
+            (finalTotal / budget) * 100;
 
         progress.style.width =
             percent + "%";
@@ -90,7 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         budgetInfo.innerText =
             "Digunakan Rp " +
-            formatRupiah(total) +
+            formatRupiah(finalTotal) +
             " dari Rp " +
             formatRupiah(budget);
 
@@ -100,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("budget-warning");
 
 
-        if (total > budget) {
+        if (finalTotal > budget) {
 
             progress.style.background =
                 "red";
@@ -128,11 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
-
     // ===== BUTTON PLUS =====
     const plusButtons =
         document.querySelectorAll(".plus-btn");
-
 
     plusButtons.forEach(function(button) {
 
@@ -153,7 +158,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
     });
-
 
     // ===== BUTTON MINUS =====
     const minusButtons =
@@ -184,7 +188,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     });
 
-
     // ===== PROMO =====
     window.cekPromo = function() {
 
@@ -194,12 +197,20 @@ document.addEventListener("DOMContentLoaded", function () {
         if (kode === "GROCERIA2026") {
 
             alert("Promo berhasil digunakan!");
+            
+            discountPercent = 0.1; // Memberikan diskon 10%
+
+            updateCart(); // Render ulang keranjang
 
         }
 
         else {
 
             alert("Kode promo tidak valid.");
+            
+            discountPercent = 0; // Mereset diskon
+            
+            updateCart(); // Render ulang keranjang tanpa diskon
 
         }
 

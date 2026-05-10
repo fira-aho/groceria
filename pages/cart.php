@@ -252,6 +252,17 @@ if (mysqli_num_rows($result) == 0) {
                 <h3>Ringkasan Belanja</h3>
 
 
+            <div class="row">
+
+                <span>Diskon</span>
+
+                <span class="discount" id="discount-value">
+                    - Rp 0
+                </span>
+
+            </div>
+
+
                 <div class="row">
 
                     <span>Total Harga</span>
