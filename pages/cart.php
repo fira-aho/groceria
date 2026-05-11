@@ -4,6 +4,24 @@
 include "../config/database.php";
 /** @var mysqli $conn */
 
+// ===== HANDLE AJAX UPDATE QTY =====
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'update_qty') {
+    $id = intval($_POST['id']);
+    $qty = intval($_POST['qty']);
+
+    if ($qty > 0) {
+        mysqli_query($conn, "UPDATE cart SET qty = $qty, subtotal = price * $qty WHERE id = $id");
+    } else {
+        mysqli_query($conn, "DELETE FROM cart WHERE id = $id");
+    }
+
+    $cek_cart = mysqli_query($conn, "SELECT COUNT(*) as count FROM cart");
+    $data_cart = mysqli_fetch_assoc($cek_cart);
+    
+    echo json_encode(['status' => 'success', 'is_empty' => ($data_cart['count'] == 0)]);
+    exit;
+}
+
 // ===== AMBIL DATA CART =====
 $query = "SELECT * FROM cart";
 
@@ -91,6 +109,7 @@ if (mysqli_num_rows($result) == 0) {
 
             <div
                 class="cart-item"
+                data-id="<?php echo isset($row['id']) ? $row['id'] : ''; ?>"
                 data-price="<?php echo $row['price']; ?>"
             >
 

@@ -135,6 +135,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
 
+    // ===== UPDATE DATABASE VIA AJAX =====
+    function updateDatabase(id, qty) {
+        const formData = new FormData();
+        formData.append('action', 'update_qty');
+        formData.append('id', id);
+        formData.append('qty', qty);
+
+        fetch('cart.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.is_empty) {
+                window.location.href = 'empty.php';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
     // ===== BUTTON PLUS =====
     const plusButtons =
         document.querySelectorAll(".plus-btn");
@@ -142,6 +162,11 @@ document.addEventListener("DOMContentLoaded", function () {
     plusButtons.forEach(function(button) {
 
         button.addEventListener("click", function() {
+
+            const cartItem =
+                this.closest(".cart-item");
+            const cartId =
+                cartItem.getAttribute("data-id");
 
             const qtyElement =
                 this.parentElement.querySelector(".qty-value");
@@ -154,6 +179,8 @@ document.addEventListener("DOMContentLoaded", function () {
             qtyElement.innerText = qty;
 
             updateCart();
+
+            updateDatabase(cartId, qty);
 
         });
 
@@ -168,19 +195,27 @@ document.addEventListener("DOMContentLoaded", function () {
 
         button.addEventListener("click", function() {
 
+            const cartItem =
+                this.closest(".cart-item");
+            const cartId =
+                cartItem.getAttribute("data-id");
+
             const qtyElement =
                 this.parentElement.querySelector(".qty-value");
 
             let qty =
                 Number(qtyElement.innerText);
 
-            if (qty > 1) {
+            qty--;
 
-                qty--;
-
+            if (qty > 0) {
                 qtyElement.innerText = qty;
-
                 updateCart();
+                updateDatabase(cartId, qty);
+            } else {
+                cartItem.remove();
+                updateCart();
+                updateDatabase(cartId, 0);
 
             }
 
