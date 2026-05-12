@@ -33,15 +33,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 alert('Login berhasil!');
                 window.location.href='../index.php';
             </script>";
-
     } else {
 
         echo "<script>
                 alert('Email atau password salah!');
               </script>";
-
     }
-
 }
 
 ?>
@@ -97,8 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="email"
                     name="email"
                     placeholder="Masukkan email"
-                    required
-                >
+                    required>
 
 
                 <!-- Password -->
@@ -108,8 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="password"
                     name="password"
                     placeholder="Masukkan password"
-                    required
-                >
+                    required>
 
 
                 <!-- Button -->
@@ -138,4 +133,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
 </body>
+
 </html>

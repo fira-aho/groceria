@@ -19,11 +19,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>
                 alert('Konfirmasi password tidak sesuai!');
               </script>";
-
     } else {
 
         // Cek email sudah ada atau belum
-        $cek = mysqli_query($conn,
+        $cek = mysqli_query(
+            $conn,
             "SELECT * FROM users WHERE email='$email'"
         );
 
@@ -32,7 +32,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<script>
                     alert('Email sudah digunakan!');
                   </script>";
-
         } else {
 
             // Query insert
@@ -48,19 +47,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         alert('Register berhasil!');
                         window.location.href='login.php';
                       </script>";
-
             } else {
 
                 echo "<script>
                         alert('Register gagal!');
                       </script>";
-
             }
-
         }
-
     }
-
 }
 
 ?>
@@ -116,8 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="text"
                     name="nama"
                     placeholder="Masukkan nama lengkap"
-                    required
-                >
+                    required>
 
 
                 <!-- Email -->
@@ -127,8 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="email"
                     name="email"
                     placeholder="Masukkan email"
-                    required
-                >
+                    required>
 
 
                 <!-- Password -->
@@ -138,8 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="password"
                     name="password"
                     placeholder="Masukkan password"
-                    required
-                >
+                    required>
 
 
                 <!-- Konfirmasi Password -->
@@ -149,8 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     type="password"
                     name="confirm_password"
                     placeholder="Konfirmasi password"
-                    required
-                >
+                    required>
 
 
                 <!-- Button -->
@@ -179,4 +169,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </main>
 
 </body>
+
 </html>

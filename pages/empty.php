@@ -64,8 +64,7 @@
         <!-- Gambar Empty Cart -->
         <img
             src="../assets/img/empty-cart.jpg"
-            alt="Empty Cart"
-        >
+            alt="Empty Cart">
 
 
         <!-- Title -->
@@ -87,8 +86,7 @@
         <!-- Button -->
         <button
             onclick="mulaiBelanja()"
-            class="shop-btn"
-        >
+            class="shop-btn">
 
             Mulai Belanja
 
@@ -125,4 +123,5 @@
     <script src="../assets/js/modules/empty.js"></script>
 
 </body>
+
 </html>

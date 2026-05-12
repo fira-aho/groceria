@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
 
     $cek_cart = mysqli_query($conn, "SELECT COUNT(*) as count FROM cart");
     $data_cart = mysqli_fetch_assoc($cek_cart);
-    
+
     echo json_encode(['status' => 'success', 'is_empty' => ($data_cart['count'] == 0)]);
     exit;
 }
@@ -32,7 +32,6 @@ $result = mysqli_query($conn, $query);
 if (mysqli_num_rows($result) == 0) {
 
     header("Location: empty.php");
-
 }
 
 ?>
@@ -105,63 +104,61 @@ if (mysqli_num_rows($result) == 0) {
 
 
             <!-- ===== LOOP CART ===== -->
-            <?php while($row = mysqli_fetch_assoc($result)) { ?>
+            <?php while ($row = mysqli_fetch_assoc($result)) { ?>
 
-            <div
-                class="cart-item"
-                data-id="<?php echo isset($row['id']) ? $row['id'] : ''; ?>"
-                data-price="<?php echo $row['price']; ?>"
-            >
+                <div
+                    class="cart-item"
+                    data-id="<?php echo isset($row['id']) ? $row['id'] : ''; ?>"
+                    data-price="<?php echo $row['price']; ?>">
 
-                <!-- Gambar -->
-                <img
-                    src="../assets/img/<?php echo $row['image']; ?>"
-                    alt="Produk"
-                >
+                    <!-- Gambar -->
+                    <img
+                        src="../assets/img/<?php echo $row['image']; ?>"
+                        alt="Produk">
 
 
-                <!-- Info -->
-                <div class="item-info">
+                    <!-- Info -->
+                    <div class="item-info">
 
-                    <h4>
-                        <?php echo $row['product_name']; ?>
-                    </h4>
+                        <h4>
+                            <?php echo $row['product_name']; ?>
+                        </h4>
 
-                    <span>
-                        Rp <?php echo number_format($row['price'], 0, ',', '.'); ?>
-                    </span>
+                        <span>
+                            Rp <?php echo number_format($row['price'], 0, ',', '.'); ?>
+                        </span>
+
+                    </div>
+
+
+                    <!-- Quantity -->
+                    <div class="qty">
+
+                        <button class="minus-btn">
+                            -
+                        </button>
+
+                        <span class="qty-value">
+                            <?php echo $row['qty']; ?>
+                        </span>
+
+                        <button class="plus-btn">
+                            +
+                        </button>
+
+                    </div>
+
+
+                    <!-- Subtotal -->
+                    <div class="subtotal">
+
+                        Rp <span class="subtotal-value">
+                            <?php echo number_format($row['subtotal'], 0, ',', '.'); ?>
+                        </span>
+
+                    </div>
 
                 </div>
-
-
-                <!-- Quantity -->
-                <div class="qty">
-
-                    <button class="minus-btn">
-                        -
-                    </button>
-
-                    <span class="qty-value">
-                        <?php echo $row['qty']; ?>
-                    </span>
-
-                    <button class="plus-btn">
-                        +
-                    </button>
-
-                </div>
-
-
-                <!-- Subtotal -->
-                <div class="subtotal">
-
-                    Rp <span class="subtotal-value">
-                        <?php echo number_format($row['subtotal'], 0, ',', '.'); ?>
-                    </span>
-
-                </div>
-
-            </div>
 
             <?php } ?>
 
@@ -271,15 +268,15 @@ if (mysqli_num_rows($result) == 0) {
                 <h3>Ringkasan Belanja</h3>
 
 
-            <div class="row">
+                <div class="row">
 
-                <span>Diskon</span>
+                    <span>Diskon</span>
 
-                <span class="discount" id="discount-value">
-                    - Rp 0
-                </span>
+                    <span class="discount" id="discount-value">
+                        - Rp 0
+                    </span>
 
-            </div>
+                </div>
 
 
                 <div class="row">
@@ -342,4 +339,5 @@ if (mysqli_num_rows($result) == 0) {
     <script src="../assets/js/modules/cart.js"></script>
 
 </body>
+
 </html>

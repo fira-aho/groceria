@@ -1,7 +1,5 @@
 function mulaiBelanja() {
+  alert("Selamat berbelanja di Groceria!");
 
-    alert("Selamat berbelanja di Groceria!");
-
-    window.location.href = "../index.php";
-
+  window.location.href = "../index.php";
 }
