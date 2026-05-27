@@ -4,12 +4,12 @@ session_start();
 include "../config/database.php";
 /** @var mysqli $conn */
 
-// INIT CART
+
 if (!isset($_SESSION['cart'])) {
     $_SESSION['cart'] = [];
 }
 
-/* 🔥 FIX: HAPUS DUPLIKAT BERDASARKAN NAMA PRODUK */
+
 $uniqueCart = [];
 $seen = [];
 
@@ -22,7 +22,7 @@ foreach ($_SESSION['cart'] as $item) {
 
 $cart = $uniqueCart;
 
-// HANDLE SUBMIT CHECKOUT
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $nama = $_POST['nama_lengkap'];
