@@ -29,7 +29,7 @@ body {
 
 /* HERO */
 .section-promo {
-    background-image: url("/groceria/assets/img/1284104.jpg");
+    background-image: url("/groceria/public/assets/img/1284104.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -145,7 +145,7 @@ body {
 
 /* INSPIRE */
 .inspire {
-    background-image: url("/groceria/assets/img/kitchen.jpg");
+    background-image: url("/groceria/public/assets/img/kitchen.jpg");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
