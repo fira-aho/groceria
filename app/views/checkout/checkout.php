@@ -1,52 +1,9 @@
 <?php
 
-session_start();
-include "../config/database.php";
-/** @var mysqli $conn */
+require_once "../../controllers/CheckoutController.php";
 
-
-if (!isset($_SESSION['cart'])) {
-    $_SESSION['cart'] = [];
-}
-
-
-$uniqueCart = [];
-$seen = [];
-
-foreach ($_SESSION['cart'] as $item) {
-    if (!in_array($item['name'], $seen)) {
-        $uniqueCart[] = $item;
-        $seen[] = $item['name'];
-    }
-}
-
-$cart = $uniqueCart;
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-    $nama = $_POST['nama_lengkap'];
-    $telp = $_POST['no_telepon'];
-    $alamat = $_POST['alamat'];
-    $metode = $_POST['metode_pembayaran'];
-
-    $_SESSION['metode_pembayaran'] = $metode;
-
-    $query = "INSERT INTO checkout (
-        nama_lengkap,
-        no_telepon,
-        alamat
-    ) VALUES (
-        '$nama',
-        '$telp',
-        '$alamat'
-    )";
-
-    if (mysqli_query($conn, $query)) {
-        header("Location: success.php");
-        exit();
-    }
-}
+$controller = new CheckoutController();
+$cart = $controller->process();
 
 ?>
 
@@ -55,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 <meta charset="UTF-8" />
 <title>Checkout</title>
-<link rel="stylesheet" href="../assets/css/pages/checkout.css" />
+<link rel="stylesheet" href="../../../public/assets/css/pages/checkout.css" />
 </head>
 
 <body>

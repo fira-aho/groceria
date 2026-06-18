@@ -9,7 +9,7 @@ $metode = $_SESSION['metode_pembayaran'] ?? "Belum Dipilih";
 <head>
     <meta charset="UTF-8" />
     <title>Pesanan Berhasil</title>
-    <link rel="stylesheet" href="../assets/css/pages/success.css" />
+    <link rel="stylesheet" href="../../../public/assets/css/pages/success.css" />
 </head>
 
 <body>
