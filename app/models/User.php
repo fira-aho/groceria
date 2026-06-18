@@ -9,15 +9,31 @@ class User
         $this->conn = $conn;
     }
 
-    // Login User
+    // LOGIN
     public function login($email, $password)
     {
         $query = "SELECT * FROM users
                   WHERE email='$email'
                   AND password='$password'";
 
-        $result = mysqli_query($this->conn, $query);
+        return mysqli_query($this->conn, $query);
+    }
 
-        return $result;
+    // CEK EMAIL
+    public function cekEmail($email)
+    {
+        $query = "SELECT * FROM users
+                  WHERE email='$email'";
+
+        return mysqli_query($this->conn, $query);
+    }
+
+    // REGISTER
+    public function register($nama, $email, $password)
+    {
+        $query = "INSERT INTO users (nama, email, password)
+                  VALUES ('$nama', '$email', '$password')";
+
+        return mysqli_query($this->conn, $query);
     }
 }

@@ -102,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
     formData.append("id", id);
     formData.append("qty", qty);
 
-    fetch("cart.php", {
+    fetch("../../views/cart/cart.php", {
       method: "POST",
       body: formData,
     })

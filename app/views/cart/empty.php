@@ -8,7 +8,7 @@
     <title>Empty Cart - Groceria</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="../assets/css/pages/empty.css" />
+    <link rel="stylesheet" href="../../../public/assets/css/pages/empty.css" />
   </head>
 
   <body>
@@ -35,7 +35,7 @@
     <!-- ===== EMPTY SECTION ===== -->
     <main class="empty-container">
       <!-- Gambar Empty Cart -->
-      <img src="../assets/img/empty-cart.jpg" alt="Empty Cart" />
+      <img src="../../../public/assets/img/empty-cart.jpg" alt="Empty Cart" />
 
       <!-- Title -->
       <h2>Keranjang Belanja Masih Kosong</h2>
@@ -66,6 +66,6 @@
     </footer>
 
     <!-- JS -->
-    <script src="../assets/js/modules/empty.js"></script>
+    <script src="../../../public/assets/js/modules/empty.js"></script>
   </body>
 </html>
