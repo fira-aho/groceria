@@ -1,39 +1,49 @@
 <?php
 
-class User
+namespace App\Models;
+
+// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
 {
-    private $conn;
+    /** @use HasFactory<UserFactory> */
+    use HasFactory, Notifiable;
 
-    public function __construct($conn)
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var list<string>
+     */
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+    ];
+
+    /**
+     * The attributes that should be hidden for serialization.
+     *
+     * @var list<string>
+     */
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    /**
+     * Get the attributes that should be cast.
+     *
+     * @return array<string, string>
+     */
+    protected function casts(): array
     {
-        $this->conn = $conn;
-    }
-
-    // LOGIN
-    public function login($email, $password)
-    {
-        $query = "SELECT * FROM users
-                  WHERE email='$email'
-                  AND password='$password'";
-
-        return mysqli_query($this->conn, $query);
-    }
-
-    // CEK EMAIL
-    public function cekEmail($email)
-    {
-        $query = "SELECT * FROM users
-                  WHERE email='$email'";
-
-        return mysqli_query($this->conn, $query);
-    }
-
-    // REGISTER
-    public function register($nama, $email, $password)
-    {
-        $query = "INSERT INTO users (nama, email, password)
-                  VALUES ('$nama', '$email', '$password')";
-
-        return mysqli_query($this->conn, $query);
+        return [
+            'email_verified_at' => 'datetime',
+            'password' => 'hashed',
+        ];
     }
 }
