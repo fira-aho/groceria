@@ -4,6 +4,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,12 @@ Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('car
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'store']);
 Route::view('/success', 'success');
+
+// Menampilkan form login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
+// Memproses verifikasi login
+Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+
+// Memproses logout
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
