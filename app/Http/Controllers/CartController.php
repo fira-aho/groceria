@@ -20,8 +20,8 @@ class CartController extends Controller
         // 2. Kumpulkan ID produk apa saja yang sudah masuk ke keranjang
         $cartProductIds = $cartItems->pluck('product_id')->toArray();
 
-        // 3. Ambil produk dari database yang ID-nya TIDAK ADA di keranjang (batas 3 item)
-        $recommendations = \App\Models\Product::whereNotIn('id', $cartProductIds)->limit(3)->get();
+        // 3. Ambil produk dari database yang ID-nya TIDAK ADA di keranjang (batas 6 item)
+        $recommendations = \App\Models\Product::whereNotIn('id', $cartProductIds)->limit(6)->get();
 
         // 4. Kirim data cart DAN data rekomendasi ke view
         return view('cart.index', compact('cartItems', 'recommendations'));

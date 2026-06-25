@@ -66,6 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let percent = (finalTotal / budget) * 100;
 
+    // Kunci maksimal lebar bar di 100% agar tidak bablas
+    if (percent > 100) {
+      percent = 100;
+    }
+
     progress.style.width = percent + "%";
 
     // ===== UPDATE INFO =====
