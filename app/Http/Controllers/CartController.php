@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Cart;
 use Illuminate\Http\Request;
 
@@ -9,47 +10,52 @@ class CartController extends Controller
 {
     public function index()
     {
-        // Mengambil semua data dari tabel cart
-        $cartItems = Cart::all();
+        // 1. Ambil semua data cart beserta data produk relasinya
+        $cartItems = Cart::with('product')->get();
 
-        // Jika kosong, arahkan ke halaman khusus cart kosong
         if ($cartItems->isEmpty()) {
             return view('cart.empty');
         }
 
-        // Jika ada isinya, kirim data ke view utama cart
-        return view('cart.index', compact('cartItems'));
+        // 2. Kumpulkan ID produk apa saja yang sudah masuk ke keranjang
+        $cartProductIds = $cartItems->pluck('product_id')->toArray();
+
+        // 3. Ambil produk dari database yang ID-nya TIDAK ADA di keranjang (batas 3 item)
+        $recommendations = \App\Models\Product::whereNotIn('id', $cartProductIds)->limit(3)->get();
+
+        // 4. Kirim data cart DAN data rekomendasi ke view
+        return view('cart.index', compact('cartItems', 'recommendations'));
     }
 
     public function updateQty(Request $request)
     {
-        // Validasi data kiriman AJAX
         $request->validate([
             'id' => 'required|integer',
             'qty' => 'required|integer',
+            'action' => 'required|string|in:update_qty'
         ]);
 
         $cartItem = Cart::find($request->id);
 
         if ($cartItem) {
             if ($request->qty > 0) {
-                // Update kuantitas dan hitung subtotal baru
+                // Ambil harga dari tabel products lewat relasi
+                $hargaProduk = $cartItem->product->price; 
+                
                 $cartItem->update([
                     'qty' => $request->qty,
-                    'subtotal' => $cartItem->price * $request->qty
+                    'subtotal' => $hargaProduk * $request->qty
                 ]);
             } else {
-                // Hapus item jika kuantitasnya diubah ke 0 atau minus
                 $cartItem->delete();
             }
         }
 
-        // Hitung total baris data yang tersisa di tabel cart
-        $totalSisa = Cart::count();
+        $count = Cart::count();
 
         return response()->json([
             'status' => 'success',
-            'is_empty' => ($totalSisa === 0)
+            'is_empty' => ($count === 0)
         ]);
     }
 }

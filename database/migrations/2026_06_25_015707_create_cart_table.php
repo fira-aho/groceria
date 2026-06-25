@@ -6,24 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Jalankan migrasi untuk membuat tabel.
-     */
     public function up(): void
     {
         Schema::create('cart', function (Blueprint $table) {
             $table->id();
-            $table->string('product_name');
-            $table->integer('price');
+            
+            // Menghubungkan tabel cart dengan tabel products
+            $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+            
             $table->integer('qty');
-            $table->integer('subtotal');
-            $table->string('image')->nullable();
+            
+            // Kolom subtotal boleh tetap ada untuk mempercepat kalkulasi sistem
+            $table->integer('subtotal'); 
         });
     }
 
-    /**
-     * Batalkan migrasi (hapus tabel).
-     */
     public function down(): void
     {
         Schema::dropIfExists('cart');

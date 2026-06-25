@@ -1,19 +1,9 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cart - Groceria</title>
-    
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <link rel="stylesheet" href="{{ asset('assets/css/pages/cart.css') }}">
-</head>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cart - Groceria</title>
     <link rel="stylesheet" href="{{ asset('assets/css/pages/cart.css') }}">
 </head>
@@ -36,12 +26,12 @@
             <p class="subtitle">Daftar belanjaan kurasi pilihan Anda untuk hari yang lebih segar.</p>
 
             @foreach ($cartItems as $row)
-            <div class="cart-item" data-id="{{ $row->id }}" data-price="{{ $row->price }}">
-                <img src="{{ asset('assets/img/' . $row->image) }}" alt="Produk">
+            <div class="cart-item" data-id="{{ $row->id }}" data-price="{{ $row->product->price }}">
+                <img src="{{ asset('assets/img/' . $row->product->image) }}" alt="Produk">
                 
                 <div class="item-info">
-                    <h4>{{ $row->product_name }}</h4>
-                    <span>Rp {{ number_format($row->price, 0, ',', '.') }}</span>
+                    <h4>{{ $row->product->name }}</h4>
+                    <span>Rp {{ number_format($row->product->price, 0, ',', '.') }}</span>
                 </div>
                 
                 <div class="qty">
@@ -63,24 +53,16 @@
 
             <h3>Lengkapi Belanjaan Anda</h3>
             <div class="recommendation">
+                
+                @foreach ($recommendations as $rek)
                 <div class="card">
-                    <img src="{{ asset('assets/img/yogurt.jpg') }}" alt="Yogurt">
-                    <p>Greek Yogurt Berry</p>
-                    <span>Rp 32.000</span>
+                    <img src="{{ asset('assets/img/' . $rek->image) }}" alt="{{ $rek->name }}">
+                    <p>{{ $rek->name }}</p>
+                    <span>Rp {{ number_format($rek->price, 0, ',', '.') }}</span>
                     <button>Tambah</button>
                 </div>
-                <div class="card">
-                    <img src="{{ asset('assets/img/alpukat.jpg') }}" alt="Alpukat">
-                    <p>Alpukat Mentega</p>
-                    <span>Rp 15.500</span>
-                    <button>Tambah</button>
-                </div>
-                <div class="card">
-                    <img src="{{ asset('assets/img/madu.jpg') }}" alt="Madu">
-                    <p>Madu Hutan</p>
-                    <span>Rp 78.000</span>
-                    <button>Tambah</button>
-                </div>
+                @endforeach
+
             </div>
         </section>
 

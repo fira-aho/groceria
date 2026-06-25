@@ -9,18 +9,20 @@ class Cart extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel di database lama kamu
     protected $table = 'cart'; 
 
-    // Daftar kolom yang diizinkan untuk diisi data secara massal
+    // Sesuaikan dengan struktur migrasi cart terbaru
     protected $fillable = [
-        'product_name', 
-        'price', 
+        'product_id', 
         'qty', 
-        'subtotal', 
-        'image'
+        'subtotal'
     ];
 
-    // Matikan timestamps karena tabel lamamu tidak punya kolom created_at & updated_at bawaan Laravel
     public $timestamps = false; 
+
+    // Fungsi penting untuk mengambil data produk secara estafet
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }
