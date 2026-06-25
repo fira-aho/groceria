@@ -82,34 +82,38 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (finalTotal > budget) {
       progress.style.background = "red";
-
       warning.innerText = "Budget melebihi batas!";
-
       warning.style.color = "red";
     } else {
       progress.style.background = "green";
-
       warning.innerText = "Budget masih aman.";
-
       warning.style.color = "green";
     }
   }
 
-  // ===== UPDATE DATABASE VIA AJAX =====
+  // ===== UPDATE DATABASE VIA AJAX (VERSI LARAVEL) =====
   function updateDatabase(id, qty) {
-    const formData = new FormData();
-    formData.append("action", "update_qty");
-    formData.append("id", id);
-    formData.append("qty", qty);
+    // Ambil token keamanan CSRF dari tag meta di file index.blade.php
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    fetch("../../views/cart/cart.php", {
+    // Ubah URL mengarah ke rute Laravel
+    fetch("/cart/update-qty", {
       method: "POST",
-      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrfToken // Kirim token keamanannya ke server
+      },
+      body: JSON.stringify({
+        id: id,
+        qty: qty,
+        action: "update_qty"
+      })
     })
       .then((response) => response.json())
       .then((data) => {
+        // Jika response bilang keranjang kosong, refresh halamannya
         if (data.is_empty) {
-          window.location.href = "empty.php";
+          window.location.reload(); 
         }
       })
       .catch((error) => console.error("Error:", error));
@@ -169,15 +173,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     if (kode === "GROCERIA2026") {
       alert("Promo berhasil digunakan!");
-
       discountPercent = 0.1; // Memberikan diskon 10%
-
       updateCart(); // Render ulang keranjang
     } else {
       alert("Kode promo tidak valid.");
-
       discountPercent = 0; // Mereset diskon
-
       updateCart(); // Render ulang keranjang tanpa diskon
     }
   };
