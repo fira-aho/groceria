@@ -1,0 +1,115 @@
+/* ===== RESET ===== */
+body {
+  margin: 0;
+
+  font-family: Arial, sans-serif;
+
+  background: #f5f5f5;
+}
+
+/* ===== CONTAINER ===== */
+.register-container {
+  display: flex;
+
+  min-height: 100vh;
+}
+
+/* ===== LEFT SIDE ===== */
+.register-left {
+  flex: 1;
+}
+
+.register-left img {
+  width: 100%;
+
+  height: 100%;
+
+  object-fit: cover;
+}
+
+/* ===== RIGHT SIDE ===== */
+.register-right {
+  flex: 1;
+
+  background: white;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  padding: 60px;
+}
+
+/* ===== TITLE ===== */
+.register-right h1 {
+  margin-bottom: 10px;
+
+  color: #222;
+}
+
+.register-right p {
+  margin-bottom: 30px;
+
+  color: #666;
+}
+
+/* ===== FORM ===== */
+form {
+  display: flex;
+
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 8px;
+
+  font-weight: bold;
+}
+
+input {
+  padding: 12px;
+
+  margin-bottom: 20px;
+
+  border: 1px solid #ccc;
+
+  border-radius: 8px;
+}
+
+/* ===== BUTTON ===== */
+button {
+  padding: 12px;
+
+  background: green;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 8px;
+
+  cursor: pointer;
+
+  font-size: 16px;
+}
+
+button:hover {
+  background: darkgreen;
+}
+
+/* ===== LOGIN LINK ===== */
+.login-link {
+  margin-top: 20px;
+
+  color: #555;
+}
+
+.login-link a {
+  color: green;
+
+  text-decoration: none;
+
+  font-weight: bold;
+}
