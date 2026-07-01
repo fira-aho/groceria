@@ -18,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 // Rute Halaman Utama
 Route::get('/', [HomeController::class, 'index']);
+Route::get('/produk/{id}', [HomeController::class, 'detail']); 
 
 // Rute untuk Registrasi
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');

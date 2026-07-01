@@ -65,7 +65,7 @@
 
 <div class="produk">
     @foreach($products as $data)
-        <a href="#" class="produk-link">
+        <a href="/produk/{{ $data['id'] }}" class="produk-link">
             <div class="produk-card">
                 <div class="badge">{{ $data['badge'] }}</div>
                 <img src="{{ asset('assets/img/' . $data['gambar']) }}" width="100">

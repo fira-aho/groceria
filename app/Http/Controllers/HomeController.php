@@ -14,4 +14,13 @@ class HomeController extends Controller
         
         return view('home', compact('products'));
     }
+
+    public function detail($id)
+    {
+    $product = DB::table('products_recomendations')
+                ->where('id', $id)
+                ->first();
+    
+    return view('product_detail', compact('product'));
+    }
 }
