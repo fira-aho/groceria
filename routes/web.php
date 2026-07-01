@@ -24,6 +24,9 @@ Route::get('/produk/{id}', [HomeController::class, 'detail']);
 Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
 Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
+// Rute untuk Profile (hanya bisa diakses kalau sudah login)
+Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth');
+
 // Rute untuk Keranjang Belanja (Cart)
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');

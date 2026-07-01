@@ -23,4 +23,13 @@ class HomeController extends Controller
     
     return view('product_detail', compact('product'));
     }
+
+    public function profile()
+    {
+    // Ambil data user yang sedang login
+    $user = auth()->user();
+
+    // Kirim data user ke view profile
+    return view('profile', compact('user'));
+    }
 }
