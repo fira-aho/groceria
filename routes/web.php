@@ -16,34 +16,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// ==========================================
+
 // Rute Halaman Utama
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/produk/{id}', [HomeController::class, 'detail']); 
 
-// Rute untuk Registrasi
-Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
-Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
-
 // Rute untuk Profile (hanya bisa diakses kalau sudah login)
 Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth');
-
-// Rute untuk Keranjang Belanja (Cart)
-Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');
-
-//Route Untuk menyambungkan keranjang di Home
-Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 
 // Rute untuk Checkout
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'store']);
 Route::view('/success', 'success.success');
 
-// Menampilkan form login
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+// Rute untuk tamu yang belum login (Register & Login)
+Route::middleware('guest')->group(function () {
+    // Registrasi
+    Route::get('/register', [RegisterController::class, 'index'])->name('register.index');
+    Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
 
-// Memproses verifikasi login
-Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+    // Login
+    Route::get('/login', [LoginController::class, 'index'])->name('login');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login.authenticate');
+});
 
-// Memproses logout
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+// Rute khusus untuk pelanggan yang sudah login (Cart & Logout)
+Route::middleware('auth')->group(function () {
+    // Logout
+    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    // Keranjang Belanja (Cart)
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');
+    Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
+});

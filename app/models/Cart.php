@@ -9,18 +9,18 @@ class Cart extends Model
 {
     use HasFactory;
 
-    protected $table = 'cart'; 
+    protected $table = 'cart';
+    
+    // Matikan fitur otomatis timestamps karena tabelmu tidak punya kolom created_at/updated_at
+    public $timestamps = false; 
 
-    // Sesuaikan dengan struktur migrasi cart terbaru
     protected $fillable = [
+        'user_id', 
         'product_id', 
         'qty', 
         'subtotal'
     ];
 
-    public $timestamps = false; 
-
-    // Fungsi penting untuk mengambil data produk secara estafet
     public function product()
     {
         return $this->belongsTo(Product::class);

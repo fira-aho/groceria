@@ -24,15 +24,15 @@
     </a>
 
     <div class="icons">
-        <a href="#" class="cart-link">🛒</a>
+        <a href="/cart" class="cart-link">🛒</a>
 
-        @if(session('user_id'))
-            <a href="#" class="profile-link">
-                👤 {{ session('nama') }}
+        @auth
+            <a href="/profile" class="profile-link">
+                👤 {{ Auth::user()->name }}
             </a>
         @else
-            <a href="#" class="signin-btn">Sign In</a>
-        @endif
+            <a href="/login" class="signin-btn">Sign In</a>
+        @endauth
     </div>
 </div>
 

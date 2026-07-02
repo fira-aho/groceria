@@ -13,6 +13,9 @@ return new class extends Migration
             
             // Menghubungkan tabel cart dengan tabel products
             $table->foreignId('product_id')->constrained('products')->onDelete('cascade');
+
+            // Menghubungkan setiap item cart dengan user yang memilikinya
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             
             $table->integer('qty');
             
