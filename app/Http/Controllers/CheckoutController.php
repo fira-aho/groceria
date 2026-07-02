@@ -11,7 +11,7 @@ class CheckoutController extends Controller
     {
         $cart = [];
 
-        return view('checkout', compact('cart'));
+        return view('checkout.checkout', compact('cart'));
     }
 
     public function store(Request $request)
