@@ -31,6 +31,9 @@ Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');
 
+//Route Untuk menyambungkan keranjang di Home
+Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
+
 // Rute untuk Checkout
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'store']);

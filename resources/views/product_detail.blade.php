@@ -19,10 +19,6 @@
 
         <div class="detail-info">
 
-            <span class="badge">
-                {{ $product->badge }}
-            </span>
-
             <h1>{{ $product->nama_produk }}</h1>
 
             <h2>

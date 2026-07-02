@@ -2,6 +2,7 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Groceria</title>
     <link rel="stylesheet" href="{{ asset('assets/css/pages/home.css') }}">
 </head>
@@ -65,15 +66,15 @@
 
 <div class="produk">
     @foreach($products as $data)
-        <a href="/produk/{{ $data['id'] }}" class="produk-link">
-            <div class="produk-card">
+        <div class="produk-card">
+            <a href="/produk/{{ $data['id'] }}" class="produk-link">
                 <div class="badge">{{ $data['badge'] }}</div>
                 <img src="{{ asset('assets/img/' . $data['gambar']) }}" width="100">
                 <p>{{ $data['nama_produk'] }}</p>
                 <h4>Rp{{ number_format($data['harga']) }}</h4>
-                <button>+ Keranjang</button>
-            </div>
-        </a>
+            </a>
+            <button type="button" class="btn-add-cart" data-id="{{ $data['id'] }}">+ Keranjang</button>
+        </div>
     @endforeach
 </div>
 

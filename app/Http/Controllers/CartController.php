@@ -58,4 +58,37 @@ class CartController extends Controller
             'is_empty' => ($count === 0)
         ]);
     }
+    
+    public function store(Request $request)
+    {
+    $request->validate([
+        'product_id' => 'required|integer|exists:products,id',
+        'qty' => 'nullable|integer|min:1',
+    ]);
+
+    $qty = $request->qty ?? 1;
+    $product = Product::findOrFail($request->product_id);
+
+    $cartItem = Cart::where('product_id', $product->id)->first();
+
+    if ($cartItem) {
+        $newQty = $cartItem->qty + $qty;
+        $cartItem->update([
+            'qty' => $newQty,
+            'subtotal' => $newQty * $product->price,
+        ]);
+    } else {
+        Cart::create([
+            'product_id' => $product->id,
+            'qty' => $qty,
+            'subtotal' => $product->price * $qty,
+        ]);
+    }
+
+    return response()->json([
+        'status' => 'success',
+        'message' => 'Produk ditambahkan ke keranjang',
+        'cart_count' => Cart::count(),
+    ]);
+    }   
 }

@@ -27,12 +27,18 @@ class HomeController extends Controller
     return view('home', compact('products'));
     }
 
-    public function detail($id)
+public function detail($id)
     {
-    $product = DB::table('products_recomendations')
-                ->where('id', $id)
-                ->first();
-    
+    $product = DB::table('products')
+        ->select(
+            'id',
+            'name as nama_produk',
+            'price as harga',
+            'image as gambar'
+        )
+        ->where('id', $id)
+        ->first();
+
     return view('product_detail', compact('product'));
     }
 
