@@ -26,7 +26,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
 
             // Alihkan ke halaman cart (atau halaman utama) setelah berhasil login
-            return redirect()->intended('/cart')->with('success', 'Login berhasil!');
+            return redirect()->intended('/')->with('success', 'Login berhasil!');
         }
 
         // 3. Jika gagal, kembali ke halaman login dengan membawa pesan error
