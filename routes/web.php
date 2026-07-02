@@ -34,7 +34,7 @@ Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('car
 // Rute untuk Checkout
 Route::get('/checkout', [CheckoutController::class, 'index']);
 Route::post('/checkout', [CheckoutController::class, 'store']);
-Route::view('/success', 'success');
+Route::view('/success', 'success.success');
 
 // Menampilkan form login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
