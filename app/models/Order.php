@@ -8,11 +8,13 @@ class Order extends Model
 {
     protected $table = 'checkout';
 
+    protected $primaryKey = 'id_checkout';
+
+    public $timestamps = false;
+
     protected $fillable = [
         'nama_lengkap',
         'no_telepon',
         'alamat'
     ];
-
-    public $timestamps = false;
 }
