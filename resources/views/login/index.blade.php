@@ -21,7 +21,7 @@
 
     <main class="register-container">
         <section class="register-left">
-            <img src="{{ asset('assets/img/register-banner.jpg') }}" alt="Login Banner">
+            <img src="{{ asset('assets/img/login-banner.jpg') }}" alt="Login Banner">
         </section>
 
         <section class="register-right">
