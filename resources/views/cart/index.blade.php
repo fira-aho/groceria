@@ -8,18 +8,37 @@
     <link rel="stylesheet" href="{{ asset('assets/css/pages/cart.css') }}">
 </head>
 <body>
-    <header class="navbar">
-        <div class="logo">
-            <a href="{{ url('/') }}">Groceria</a>
+    <!-- NAVBAR -->
+    <div class="cart-navbar">
+        <div class="nav-left">
+            <h2 class="logo"><a href="/">Groceria</a></h2>
+            <span class="nav-icons">
+                <a href="/cart">🛒</a>
+            </span>
         </div>
-        <nav>
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('cart.index') }}">Cart</a>
-            <a href="{{ url('/login') }}">Login</a>
-        </nav>
-        <div class="icons">🛒👤</div>
-    </header>
-
+    
+        <div class="nav-right">
+            <a href="/">Home</a>
+            <a href="/cart">Cart</a>
+            
+            @auth
+                <!-- Menampilkan nama user jika sudah login -->
+                <a href="/profile" class="profile-link">
+                    👤 {{ Auth::user()->name }}
+                </a>
+                
+                <!-- Tombol Logout -->
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit" class="logout-btn">Logout</button>
+                </form>
+            @else
+                <!-- Menampilkan tombol login jika tamu -->
+                <a href="/login">Login</a>
+            @endauth
+        </div>
+    </div>
+    
     <main class="container">
         <section class="cart-left">
             <h2>Keranjang Belanja Anda</h2>
