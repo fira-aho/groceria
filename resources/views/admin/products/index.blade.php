@@ -35,7 +35,7 @@
                         <td>{{ $item->stock }} Pcs</td>
                         <td>Rp{{ number_format($item->price, 0, ',', '.') }}</td>
                         <td class="text-center">
-                            <a href="#" class="btn btn-warning btn-sm text-white" title="Edit">
+                            <a href="{{ route('produk.edit', $item->id) }}" class="btn btn-warning btn-sm text-white" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
                             <form action="{{ route('produk.destroy', $item->id) }}" method="POST" class="d-inline">

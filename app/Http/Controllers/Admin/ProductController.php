@@ -70,17 +70,59 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit($id)
     {
-        //
+        // Cari produk berdasarkan ID
+        $product = Product::findOrFail($id);
+        
+        // Buka halaman formulir edit sambil membawa data produk tersebut
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        // 1. Validasi data yang masuk (gambar bersifat nullable/opsional)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        // 2. Cari data produk yang akan diedit
+        $product = Product::findOrFail($id);
+
+        // 3. Bungkus data teks yang pasti diubah
+        $dataUpdate = [
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+        ];
+
+        // 4. Periksa apakah ada file gambar baru yang diunggah
+        if ($request->hasFile('image')) {
+            // Cek dan hapus gambar fisik yang lama dari folder
+            $oldImagePath = public_path('assets/img/' . $product->image);
+            if (file_exists($oldImagePath) && $product->image != null) {
+                @unlink($oldImagePath);
+            }
+
+            // Siapkan nama baru dan pindahkan gambar baru ke folder
+            $imageName = time() . '.' . $request->image->extension();
+            $request->image->move(public_path('assets/img'), $imageName);
+            
+            // Tambahkan nama gambar baru ke bungkusan data update
+            $dataUpdate['image'] = $imageName;
+        }
+
+        // 5. Eksekusi pembaruan ke database
+        $product->update($dataUpdate);
+
+        // 6. Tendang kembali ke halaman daftar produk
+        return redirect()->route('produk.index');
     }
 
     /**
