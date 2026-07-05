@@ -25,7 +25,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -33,7 +33,30 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // 1. Periksa kelengkapan dan format data (Validasi)
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'stock' => 'required|numeric',
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048', // Wajib gambar, maksimal 2MB
+        ]);
+
+        // 2. Siapkan nama unik untuk gambar agar tidak menimpa file lama
+        $imageName = time() . '.' . $request->image->extension();  
+
+        // 3. Pindahkan file gambar ke folder public/assets/img
+        $request->image->move(public_path('assets/img'), $imageName);
+
+        // 4. Simpan semua data ke database
+        Product::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'stock' => $request->stock,
+            'image' => $imageName,
+        ]);
+
+        // 5. Tendang kembali admin ke halaman daftar produk setelah sukses
+        return redirect()->route('produk.index');
     }
 
     /**

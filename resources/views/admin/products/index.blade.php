@@ -19,7 +19,7 @@
                         <th class="text-center" width="5%">No</th>
                         <th width="15%">Gambar</th>
                         <th>Nama Produk</th>
-                        <th>Kategori</th>
+                        <th>Stok</th>
                         <th>Harga</th>
                         <th class="text-center" width="15%">Aksi</th>
                     </tr>
@@ -29,12 +29,11 @@
                     <tr>
                         <td class="text-center">{{ $index + 1 }}</td>
                         <td>
-                            <!-- Pastikan path gambarmu sesuai dengan yang ada di public/assets/img -->
-                            <img src="{{ asset('assets/img/' . $item->gambar) }}" alt="{{ $item->nama_produk }}" width="50" class="img-thumbnail">
+                            <img src="{{ asset('assets/img/' . $item->image) }}" alt="{{ $item->name }}" width="50" class="img-thumbnail">
                         </td>
-                        <td>{{ $item->nama_produk }}</td>
-                        <td><span class="badge bg-secondary">{{ $item->badge ?? 'Reguler' }}</span></td>
-                        <td>Rp{{ number_format($item->harga, 0, ',', '.') }}</td>
+                        <td>{{ $item->name }}</td>
+                        <td>{{ $item->stock }} Pcs</td>
+                        <td>Rp{{ number_format($item->price, 0, ',', '.') }}</td>
                         <td class="text-center">
                             <a href="#" class="btn btn-warning btn-sm text-white" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
