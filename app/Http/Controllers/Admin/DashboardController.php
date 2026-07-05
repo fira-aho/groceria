@@ -9,7 +9,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Kita pakai teks sederhana dulu untuk menguji apakah rutenya aman
-        return "Selamat datang di Dapur Utama Groceria, Admin!";
+        // Panggil view dashboard di folder admin
+        return view('admin.dashboard');
     }
 }
