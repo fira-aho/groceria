@@ -38,7 +38,7 @@
                             <a href="#" class="btn btn-warning btn-sm text-white" title="Edit">
                                 <i class="bi bi-pencil-square"></i>
                             </a>
-                            <form action="#" method="POST" class="d-inline">
+                            <form action="{{ route('produk.destroy', $item->id) }}" method="POST" class="d-inline">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger btn-sm" title="Hapus" onclick="return confirm('Yakin ingin menghapus produk ini?')">

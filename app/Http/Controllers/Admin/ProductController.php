@@ -86,8 +86,21 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        // 1. Cari produk berdasarkan ID
+        $product = Product::findOrFail($id);
+
+        // 2. Cek apakah file gambarnya ada di folder, lalu hapus file fisiknya
+        $imagePath = public_path('assets/img/' . $product->image);
+        if (file_exists($imagePath)) {
+            @unlink($imagePath);
+        }
+
+        // 3. Hapus data produk dari database
+        $product->delete();
+
+        // 4. Kembalikan admin ke halaman daftar produk
+        return redirect()->route('produk.index');
     }
 }
