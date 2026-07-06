@@ -63,3 +63,6 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     
 });
+
+// Rute untuk menambahkan produk ke keranjang
+Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
