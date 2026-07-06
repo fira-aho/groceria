@@ -7,9 +7,20 @@
 <div class="card border-0 shadow-sm">
     <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
         <h6 class="m-0 fw-bold">Data Produk Groceria</h6>
-        <a href="{{ route('produk.create') }}" class="btn btn-primary btn-sm">
-            <i class="bi bi-plus-circle me-1"></i> Tambah Produk
-        </a>
+        
+        <div class="d-flex gap-2">
+            <!-- Form Pencarian -->
+            <form action="{{ route('produk.index') }}" method="GET" class="d-flex">
+                <input type="text" name="search" class="form-control form-control-sm me-2" placeholder="Cari nama produk..." value="{{ request('search') }}">
+                <button type="submit" class="btn btn-outline-secondary btn-sm" title="Cari">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+
+            <a href="{{ route('produk.create') }}" class="btn btn-primary btn-sm text-nowrap">
+                <i class="bi bi-plus-circle me-1"></i> Tambah Produk
+            </a>
+        </div>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -54,6 +65,9 @@
                     @endforelse
                 </tbody>
             </table>
+        </div>
+        <div class="mt-4 d-flex justify-content-end">
+            {{ $products->links() }}
         </div>
     </div>
 </div>

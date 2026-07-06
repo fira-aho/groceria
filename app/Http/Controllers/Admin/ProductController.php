@@ -11,12 +11,19 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua data produk dari database
-        $products = Product::all();
+        // Mulai antrean pencarian ke model Product
+        $query = Product::query();
+
+        // Jika admin mengetik sesuatu di kotak pencarian, saring datanya
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Urutkan dari yang terbaru, potong 10 per halaman, dan ikat kata kunci pencariannya
+        $products = $query->latest()->paginate(10)->withQueryString();
         
-        // Kirim datanya ke halaman HTML (view)
         return view('admin.products.index', compact('products'));
     }
 
@@ -56,7 +63,7 @@ class ProductController extends Controller
         ]);
 
         // 5. Tendang kembali admin ke halaman daftar produk setelah sukses
-        return redirect()->route('produk.index');
+        return redirect()->route('produk.index')->with('success', 'Produk baru berhasil ditambahkan!');
     }
 
     /**
@@ -122,7 +129,7 @@ class ProductController extends Controller
         $product->update($dataUpdate);
 
         // 6. Tendang kembali ke halaman daftar produk
-        return redirect()->route('produk.index');
+        return redirect()->route('produk.index')->with('success', 'Data produk berhasil diperbarui!');
     }
 
     /**
@@ -143,6 +150,6 @@ class ProductController extends Controller
         $product->delete();
 
         // 4. Kembalikan admin ke halaman daftar produk
-        return redirect()->route('produk.index');
+        return redirect()->route('produk.index')->with('success', 'Produk berhasil dihapus!');
     }
 }

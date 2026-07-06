@@ -13,23 +13,34 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Nama Produk</label>
-                    <input type="text" name="name" class="form-control" value="{{ $product->name }}" required>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name', $product->name) }}" required>
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Harga (Rp)</label>
-                    <input type="number" name="price" class="form-control" value="{{ $product->price }}" required>
+                    <input type="number" name="price" class="form-control @error('price') is-invalid @enderror" value="{{ old('price', $product->price) }}" required>
+                    @error('price')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
 
             <div class="row mb-4">
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Stok (Pcs)</label>
-                    <input type="number" name="stock" class="form-control" value="{{ $product->stock }}" required>
+                    <input type="number" name="stock" class="form-control @error('stock') is-invalid @enderror" value="{{ old('stock', $product->stock) }}" required>
+                    @error('stock')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="col-md-6">
                     <label class="form-label fw-bold">Unggah Gambar Baru (Opsional)</label>
-                    <!-- Perhatikan tidak ada atribut 'required' di sini -->
-                    <input type="file" name="image" class="form-control" accept="image/*">
+                    <input type="file" name="image" class="form-control @error('image') is-invalid @enderror" accept="image/*">
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                     <small class="text-muted mt-1 d-block">Biarkan kosong jika tidak ingin mengganti gambar.</small>
                     
                     <div class="mt-3">
