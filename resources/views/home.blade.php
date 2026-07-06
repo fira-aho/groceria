@@ -5,6 +5,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Groceria</title>
     <link rel="stylesheet" href="{{ asset('assets/css/pages/home.css') }}">
+
 </head>
 
 <body>
@@ -64,6 +65,7 @@
     <a href="#">Lihat Semua →</a>
 </div>
 
+<div class="produk">
 @foreach($products as $data)
     <a href="/produk/{{ $data['id'] }}" class="produk-link">
         <div class="produk-card">
@@ -75,6 +77,7 @@
         </div>
     </a>
 @endforeach
+</div>
 
 <!-- INSPIRE -->
 <div class="inspire">

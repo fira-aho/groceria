@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 20px;
     background: #f5f5f5;
+    overflow-x: hidden;
 }
 
 /* NAVBAR */
@@ -113,6 +114,10 @@ body {
     display: flex;
     gap: 15px;
     margin-top: 20px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 10px;
+    width: 100%;
 }
 
 .produk-card {
@@ -120,7 +125,7 @@ body {
     padding: 15px;
     border-radius: 15px;
     text-align: center;
-    flex: 1;
+    flex: 0 0 200px;
     position: relative;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
@@ -193,7 +198,7 @@ footer {
 .produk-link {
     text-decoration: none;
     color: inherit;
-    flex: 1;
+    flex: 0 0 auto;
 }
 
 .produk-card:hover {
