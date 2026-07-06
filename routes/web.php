@@ -9,6 +9,7 @@ use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,6 @@ use App\Http\Controllers\Admin\ProductController;
 // Rute Halaman Utama
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/produk/{id}', [HomeController::class, 'detail']); 
-
-// Rute untuk Profile (hanya bisa diakses kalau sudah login)
-Route::get('/profile', [HomeController::class, 'profile'])->middleware('auth');
 
 // Rute untuk Checkout
 Route::get('/checkout', [CheckoutController::class, 'index']);
@@ -68,5 +66,12 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
 });
 
+<<<<<<< HEAD
 // Rute untuk menambahkan produk ke keranjang
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
+=======
+// Rute untuk Profile
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->middleware('auth')->name('profile.update_password');
+>>>>>>> 20e58a4c5f03af323505b3fd9bfaa992d8b956a3
