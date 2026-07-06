@@ -52,10 +52,10 @@
 <p class="subtitle">Eksplorasi produk berdasarkan kebutuhan Anda</p>
 
 <div class="kategori">
-    <div class="card">🍴<p>Makanan</p></div>
-    <div class="card">🍹<p>Minuman</p></div>
-    <div class="card">🧴<p>Perawatan Tubuh</p></div>
-    <div class="card">🏠<p>Kebutuhan Rumah</p></div>
+    <a href="/kategori/Makanan" class="card">🍴<p>Makanan</p></a>
+    <a href="/kategori/Minuman" class="card">🍹<p>Minuman</p></a>
+    <a href="/kategori/Perawatan Tubuh" class="card">🧴<p>Perawatan Tubuh</p></a>
+    <a href="/kategori/Kebutuhan Rumah" class="card">🏠<p>Kebutuhan Rumah</p></a>
 </div>
 
 <!-- PRODUK -->
@@ -64,19 +64,17 @@
     <a href="#">Lihat Semua →</a>
 </div>
 
-<div class="produk">
-    @foreach($products as $data)
+@foreach($products as $data)
+    <a href="/produk/{{ $data['id'] }}" class="produk-link">
         <div class="produk-card">
-            <a href="/produk/{{ $data['id'] }}" class="produk-link">
-                <div class="badge">{{ $data['badge'] }}</div>
-                <img src="{{ asset('assets/img/' . $data['gambar']) }}" width="100">
-                <p>{{ $data['nama_produk'] }}</p>
-                <h4>Rp{{ number_format($data['harga']) }}</h4>
-            </a>
+            <div class="badge">{{ $data['category'] }}</div>
+            <img src="{{ asset('assets/img/' . $data['image']) }}" width="100">
+            <p>{{ $data['name'] }}</p>
+            <h4>Rp{{ number_format($data['price']) }}</h4>
             <button type="button" class="btn-add-cart" data-id="{{ $data['id'] }}">+ Keranjang</button>
         </div>
-    @endforeach
-</div>
+    </a>
+@endforeach
 
 <!-- INSPIRE -->
 <div class="inspire">

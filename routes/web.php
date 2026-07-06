@@ -68,3 +68,17 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
 
 // Rute untuk menambahkan produk ke keranjang
 Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
+=======
+
+
+// Rute untuk menambahkan produk ke keranjang
+Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
+
+// Rute untuk Profile
+Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
+Route::post('/profile/update', [ProfileController::class, 'update'])->middleware('auth')->name('profile.update');
+Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->middleware('auth')->name('profile.update_password');
+
+// Rute untuk halaman kategori produk
+Route::get('/kategori/{category}', [HomeController::class, 'category']);
+>>>>>>> 5e19eb2f6c3496d1130a52db66dd8d7c239fda79
