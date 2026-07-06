@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,8 +62,8 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
     // Halaman Utama Admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Halaman Manajemen Produk (Otomatis membuat semua rute CRUD)
+    Route::resource('produk', ProductController::class);
     
 });
-
-// Rute untuk menambahkan produk ke keranjang
-Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');

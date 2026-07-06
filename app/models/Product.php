@@ -9,6 +9,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 
+        'price', 
+        'stock', 
+        'image'
+    ];
+
     // Mengizinkan semua kolom diisi secara massal kecuali ID
     protected $guarded = ['id']; 
 }
