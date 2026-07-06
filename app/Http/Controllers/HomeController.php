@@ -7,47 +7,40 @@ use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    // Tampilkan semua produk di halaman home
     public function index()
     {
-    $products = DB::table('products_recomendations')
-        ->join('products', 'products.id', '=', 'products_recomendations.product_id')
-        ->select(
-            'products.id',
-            'products.name as nama_produk',
-            'products.price as harga',
-            'products.image as gambar',
-            'products_recomendations.badge'
-        )
-        ->orderBy('products_recomendations.urutan')
-        ->get()
-        ->toArray();
+        $products = DB::table('products')->get()->toArray();
+        $products = array_map(fn($p) => (array) $p, $products);
 
-    $products = array_map(fn($p) => (array) $p, $products);
-
-    return view('home', compact('products'));
+        return view('home', compact('products'));
     }
 
-public function detail($id)
+    // Tampilkan detail produk
+    public function detail($id)
     {
-    $product = DB::table('products')
-        ->select(
-            'id',
-            'name as nama_produk',
-            'price as harga',
-            'image as gambar'
-        )
-        ->where('id', $id)
-        ->first();
+        $product = DB::table('products')
+            ->select(
+                'id',
+                'name as nama_produk',
+                'price as harga',
+                'image as gambar'
+            )
+            ->where('id', $id)
+            ->first();
 
-    return view('product_detail', compact('product'));
+        return view('product_detail', compact('product'));
     }
 
-    public function profile()
+    // Tampilkan produk berdasarkan kategori
+    public function category($category)
     {
-    // Ambil data user yang sedang login
-    $user = auth()->user();
+        $products = DB::table('products')
+                    ->where('category', $category)
+                    ->get()->toArray();
 
-    // Kirim data user ke view profile
-    return view('profile', compact('user'));
+        $products = array_map(fn($p) => (array) $p, $products);
+
+        return view('category', compact('products', 'category'));
     }
 }
