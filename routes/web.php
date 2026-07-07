@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -81,3 +82,4 @@ Route::post('/profile/update-password', [ProfileController::class, 'updatePasswo
 // Rute untuk halaman kategori produk
 Route::get('/kategori/{category}', [HomeController::class, 'category']);
 
+Route::get('/search', [SearchController::class, 'index']);
