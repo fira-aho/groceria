@@ -44,14 +44,25 @@
 
     <div class="logo">Groceria</div>
 
-    <nav>
-        <span>Promosi</span>
-        <span>Lokasi Toko</span>
-    </nav>
+   
+    <div class="navbar-right">
 
-    <div class="search-wrapper" style="position: relative;">
-        <input class="search-bar" id="searchInput" type="text" placeholder="Cari produk...">
-        <div id="suggestions" class="suggestions"></div>
+        <div class="search-wrapper" style="position: relative;">
+
+            <input
+                class="search-bar"
+                id="searchInput"
+                type="text"
+                placeholder="Cari produk...">
+
+            <div id="suggestions" class="suggestions"></div>
+
+        </div>
+
+        <a href="{{ route('cart.index') }}" class="cart-icon">
+            🛒
+        </a>
+
     </div>
 
 </header>
@@ -64,10 +75,21 @@
 
         <h3>Kategori</h3>
 
-        <div class="category">Makanan</div>
-        <div class="category">Minuman</div>
-        <div class="category">Perawatan Tubuh</div>
-        <div class="category">Kebutuhan Rumah</div>
+       <a href="{{ route('search', ['category' => 'Makanan']) }}" class="category">
+    Makanan
+</a>
+
+<a href="{{ route('search', ['category' => 'Minuman']) }}" class="category">
+    Minuman
+</a>
+
+<a href="{{ route('search', ['category' => 'Perawatan Tubuh']) }}" class="category">
+    Perawatan Tubuh
+</a>
+
+<a href="{{ route('search', ['category' => 'Kebutuhan Rumah']) }}" class="category">
+    Kebutuhan Rumah
+</a>
 
         <div class="budget-box">
             <p>Estimasi Belanja</p>
@@ -113,14 +135,15 @@ const statusText = document.getElementById("statusText");
 
 const data = [
 
-@foreach ($products as $p)
+@foreach($products as $p)
 
 {
+    id: "{{ $p->id }}",
     name: "{{ $p->name }}",
-    img: "{{ asset('assets/img') }}/{{ $p->image }}",
-    tag: "<?= $p['tag'] ?>",
+    img: "{{ asset('assets/img/'.$p->image) }}",
+    tag: "{{ $p->tag }}",
     price: "{{ $p->price }}",
-    fill: "<?= $p['fill'] ?>"
+    fill: "{{ $p->fill }}"
 },
 
 @endforeach
@@ -146,9 +169,9 @@ input.addEventListener("input", function () {
 
     statusText.innerText = "";
 
-    const found = data.filter(item =>
-        item.name.toLowerCase().includes(value)
-    );
+   const found = data.filter(item =>
+    item.name.toLowerCase().includes(value)
+);
 
     if (found.length === 0) {
 
@@ -158,23 +181,22 @@ input.addEventListener("input", function () {
         return;
     }
 
-    found.forEach((item, index) => {
+   found.forEach((item) => {
 
-        suggestions.innerHTML += `
-            <div class="suggestion-item" onclick="selectProduct(${index})">
-                ${item.name}
-            </div>
-        `;
+    suggestions.innerHTML += `
+        <div class="suggestion-item"
+             onclick='selectProduct(${JSON.stringify(item)})'>
+            ${item.name}
+        </div>
+    `;
 
-    });
+});
 
 });
 
 // SELECT PRODUCT
 
-function selectProduct(index) {
-
-    const item = data[index];
+function selectProduct(item) {
 
     input.value = item.name;
 
@@ -206,17 +228,14 @@ function selectProduct(index) {
                     <div class="fill" style="width:${item.fill}"></div>
                 </div>
 
-                <form method="POST" action="">
+                <form method="POST" action="{{ route('cart.store') }}">
+    @csrf
+    <input type="hidden" name="product_id" value="${item.id}">
 
-                    <input type="hidden" name="name" value="${item.name}">
-                    <input type="hidden" name="img" value="${item.img}">
-                    <input type="hidden" name="price" value="${item.price}">
-
-                    <button type="submit" name="add_to_cart">
-                        Tambah ke Keranjang
-                    </button>
-
-                </form>
+    <button type="submit">
+        Tambah ke Keranjang
+    </button>
+</form>
 
             </div>
 

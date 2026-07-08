@@ -31,13 +31,23 @@ nav {
   gap: 20px;
 }
 
-.search-bar {
-  width: 350px;
-  padding: 12px;
-  border-radius: 12px;
-  border: none;
-  background: #eee;
-  outline: none;
+.navbar-right{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.search-wrapper{
+    position: relative;
+}
+
+.search-bar{
+    width: 350px;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #eee;
+    outline: none;
 }
 
 /* LAYOUT */
@@ -191,4 +201,38 @@ footer {
   text-align: center;
   padding: 20px;
   color: gray;
+}
+
+.cart-icon{
+    position: relative;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:45px;
+    height:45px;
+    border-radius:10px;
+    background:#0BAF3D;
+    color:white;
+    text-decoration:none;
+    margin-left:15px;
+    font-size:20px;
+}
+
+.badge{
+    position:absolute;
+    top:-6px;
+    right:-6px;
+
+    width:20px;
+    height:20px;
+
+    background:red;
+    color:white;
+
+    border-radius:50%;
+    font-size:12px;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
 }

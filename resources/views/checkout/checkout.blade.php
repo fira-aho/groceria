@@ -24,7 +24,7 @@
         <h3>🚚 Informasi Pengiriman</h3>
 
         <form method="POST" action="/checkout" onsubmit="return validateForm();">
-    @csrf
+            @csrf
 
             <p>Nama Lengkap</p>
             <input type="text" id="nama" name="nama_lengkap" />
@@ -35,13 +35,14 @@
             <p>Alamat Lengkap</p>
             <textarea id="alamat" name="alamat"></textarea>
 
-            <!-- CATATAN TETAP -->
             <p>Catatan (Opsional)</p>
             <input type="text" name="catatan" placeholder="Catatan tambahan" />
 
             <input type="hidden" id="metode" name="metode_pembayaran" />
 
-            <button type="submit" class="pay-btn">✅ BAYAR SEKARANG</button>
+            <button type="submit" class="pay-btn">
+                ✅ BAYAR SEKARANG
+            </button>
 
         </form>
 
@@ -51,9 +52,17 @@
 
         <div class="payment-options">
 
-            <button type="button" onclick="selectPayment(this)">🏦 Transfer Bank</button>
-            <button type="button" onclick="selectPayment(this)">📱 E-Wallet</button>
-            <button type="button" onclick="selectPayment(this)">💵 Cash On Delivery</button>
+            <button type="button" onclick="selectPayment(this)">
+                🏦 Transfer Bank
+            </button>
+
+            <button type="button" onclick="selectPayment(this)">
+                📱 E-Wallet
+            </button>
+
+            <button type="button" onclick="selectPayment(this)">
+                💵 Cash On Delivery
+            </button>
 
         </div>
 
@@ -66,53 +75,62 @@
 
         <ul>
 
-        <?php
-        $total = 0;
-        ?>
+            @forelse($cartItems as $item)
 
-        <?php if (count($cart) == 0): ?>
-            <li>Keranjang kosong</li>
-        <?php else: ?>
+                <li>
 
-            <?php foreach ($cart as $item): ?>
+                    <span>
+                        🛒 {{ $item->product->name }}
+                        (x{{ $item->qty }})
+                    </span>
 
-            <?php
-            $price = (int) str_replace(['Rp', '.', ' '], '', $item['price']);
-            $total += $price;
-            ?>
+                    <span>
+                        Rp {{ number_format($item->subtotal,0,',','.') }}
+                    </span>
 
-            <li>
-                <span>🛒 <?= $item['name'] ?> (x1)</span>
-                <span><?= $item['price'] ?></span>
-            </li>
+                </li>
 
-            <?php endforeach; ?>
+            @empty
 
-        <?php endif; ?>
+                <li>Keranjang kosong</li>
+
+            @endforelse
 
         </ul>
 
-        <?php
-        $ongkir = 15000;
-        $grandTotal = $total + $ongkir;
-        ?>
-
         <p class="row">
+
             <span>Subtotal</span>
-            <span>Rp <?= number_format($total, 0, ',', '.') ?></span>
+
+            <span>
+                Rp {{ number_format($subtotal,0,',','.') }}
+            </span>
+
         </p>
 
         <p class="row">
+
             <span>Ongkir</span>
-            <span>Rp <?= number_format($ongkir, 0, ',', '.') ?></span>
+
+            <span>
+                Rp {{ number_format($ongkir,0,',','.') }}
+            </span>
+
         </p>
 
         <h2 class="total">
+
             <span>Total</span>
-            <span>Rp <?= number_format($grandTotal, 0, ',', '.') ?></span>
+
+            <span>
+                Rp {{ number_format($total,0,',','.') }}
+            </span>
+
         </h2>
 
-        <p class="secure">🔒 Secure Checkout</p>
+        <p class="secure">
+            🔒 Secure Checkout
+        </p>
 
     </div>
 
@@ -135,10 +153,25 @@ function validateForm() {
     const alamat = document.getElementById("alamat").value.trim();
     const metode = document.getElementById("metode").value.trim();
 
-    if (nama === "") return alert("Nama belum diisi"), false;
-    if (telp === "") return alert("Nomor telepon belum diisi"), false;
-    if (alamat === "") return alert("Alamat belum diisi"), false;
-    if (metode === "") return alert("Pilih metode pembayaran"), false;
+    if (nama === "") {
+        alert("Nama belum diisi");
+        return false;
+    }
+
+    if (telp === "") {
+        alert("Nomor telepon belum diisi");
+        return false;
+    }
+
+    if (alamat === "") {
+        alert("Alamat belum diisi");
+        return false;
+    }
+
+    if (metode === "") {
+        alert("Pilih metode pembayaran");
+        return false;
+    }
 
     return true;
 }
@@ -146,9 +179,11 @@ function validateForm() {
 function selectPayment(button) {
 
     document.querySelectorAll(".payment-options button").forEach(btn => {
+
         btn.style.background = "";
         btn.style.color = "";
         btn.style.border = "";
+
     });
 
     button.style.background = "green";
@@ -156,6 +191,7 @@ function selectPayment(button) {
     button.style.border = "2px solid darkgreen";
 
     document.getElementById("metode").value = button.innerText;
+
 }
 
 </script>

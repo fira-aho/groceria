@@ -20,8 +20,8 @@
         <a href="#">Lokasi Toko</a>
     </div>
 
-    <a href="#" class="search-btn">
-        Cari bahan segar pilihan...
+    <a href="/search" class="search-btn">
+    Cari bahan segar pilihan...
     </a>
 
     <div class="icons">

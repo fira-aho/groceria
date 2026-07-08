@@ -38,14 +38,24 @@
 
             <div class="row">
                 <span>Metode Pembayaran</span>
-                <b>{{ session('metode_pembayaran', 'Belum Dipilih') }}</b>
+                <b>{{ $metode }}</b>
             </div>
 
             <hr />
 
+            <div class="row">
+                <span>Subtotal Produk</span>
+                <b>Rp {{ number_format($subtotal,0,',','.') }}</b>
+            </div>
+
+            <div class="row">
+                <span>Ongkir</span>
+                <b>Rp 15.000</b>
+            </div>
+
             <div class="row total">
                 <span>Total Pembayaran</span>
-                <b>Rp 98.000</b>
+                <b>Rp {{ number_format($grandTotal,0,',','.') }}</b>
             </div>
 
             <div class="btn-group">
@@ -55,17 +65,27 @@
 
         </div>
 
-        <!-- RIGHT SIDE -->
+        <!-- RIGHT -->
         <div class="right">
 
-            <!-- BUDGET -->
+            <!-- RINGKASAN -->
             <div class="card">
 
-                <p class="label">RINGKASAN BUDGET</p>
+                <p class="label">RINGKASAN BELANJA</p>
+
+                <div class="row">
+                    <span>SUBTOTAL</span>
+                    <b>Rp {{ number_format($subtotal,0,',','.') }}</b>
+                </div>
+
+                <div class="row">
+                    <span>ONGKIR</span>
+                    <b>Rp 15.000</b>
+                </div>
 
                 <div class="row">
                     <span>TOTAL BELANJA</span>
-                    <b>Rp 98.000</b>
+                    <b>Rp {{ number_format($grandTotal,0,',','.') }}</b>
                 </div>
 
                 <div class="progress">
@@ -73,7 +93,7 @@
                 </div>
 
                 <div class="saving">
-                    💰 Hemat Rp 2.000 dari budget Anda
+                    ✅ Pembayaran berhasil dikonfirmasi.
                 </div>
 
             </div>
@@ -95,9 +115,9 @@
 
     </div>
 
-   <a href="{{ url('/') }}" class="back">
-    Kembali ke Halaman Utama →
-</a>
+    <a href="{{ url('/') }}" class="back">
+        Kembali ke Halaman Utama →
+    </a>
 
 </div>
 

@@ -16,6 +16,11 @@ class Product extends Model
         'image'
     ];
 
+    public function carts()
+{
+    return $this->hasMany(Cart::class);
+}
+
     // Mengizinkan semua kolom diisi secara massal kecuali ID
     protected $guarded = ['id']; 
 }

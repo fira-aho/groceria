@@ -7,10 +7,18 @@ use App\Models\Product;
 
 class SearchController extends Controller
 {
-    public function index()
-    {
-        $products = Product::all();
+    public function index(Request $request)
+{
+    $query = Product::query();
 
-        return view('search.search', compact('products'));
+    if ($request->filled('category')) {
+
+        $query->where('category', $request->category);
+
     }
+
+    $products = $query->get();
+
+    return view('search.search', compact('products'));
+}
 }

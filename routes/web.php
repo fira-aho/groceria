@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\SuccessController;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
 
     // Keranjang Belanja (Cart)
     Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+    Route::post('/cart', [CartController::class, 'store'])
+    ->name('cart.store');
     Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');
     Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 });
@@ -82,4 +85,10 @@ Route::post('/profile/update-password', [ProfileController::class, 'updatePasswo
 // Rute untuk halaman kategori produk
 Route::get('/kategori/{category}', [HomeController::class, 'category']);
 
-Route::get('/search', [SearchController::class, 'index']);
+// Rute untuk halaman search
+Route::get('/search', [SearchController::class, 'index'])
+    ->name('search');
+
+// Rute untuk halaman success
+Route::get('/success', [SuccessController::class, 'index'])
+    ->name('success');
