@@ -53,10 +53,22 @@
 <p class="subtitle">Eksplorasi produk berdasarkan kebutuhan Anda</p>
 
 <div class="kategori">
-    <a href="/kategori/Makanan" class="card">🍴<p>Makanan</p></a>
-    <a href="/kategori/Minuman" class="card">🍹<p>Minuman</p></a>
-    <a href="/kategori/Perawatan Tubuh" class="card">🧴<p>Perawatan Tubuh</p></a>
-    <a href="/kategori/Kebutuhan Rumah" class="card">🏠<p>Kebutuhan Rumah</p></a>
+    <a href="/kategori/Makanan" class="card">
+        <img src="{{ asset('assets/img/food_home.jpg') }}" alt="Makanan">
+        <p>Makanan</p>
+    </a>
+    <a href="/kategori/Minuman" class="card">
+        <img src="{{ asset('assets/img/milk_home.jpg') }}" alt="Minuman">
+        <p>Minuman</p>
+    </a>
+    <a href="/kategori/Perawatan Tubuh" class="card">
+        <img src="{{ asset('assets/img/soaps_home.jpg') }}" alt="Perawatan Tubuh">
+        <p>Perawatan Tubuh</p>
+    </a>
+    <a href="/kategori/Kebutuhan Rumah" class="card">
+        <img src="{{ asset('assets/img/home_cleaning_home.jpg') }}" alt="Kebutuhan Rumah">
+        <p>Kebutuhan Rumah</p>
+    </a>
 </div>
 
 <!-- PRODUK -->
@@ -91,7 +103,18 @@
 
 <!-- FOOTER -->
 <footer>
-    <p>© 2026 Groceria</p>
+    <p>
+        Prodi Teknik Informatika <br>
+        Universitas Esa Unggul <br>
+        Mata Kuliah Pemrograman Web <br>
+        Dosen Pengampu: DEWI SETIOWATI , A.Md., S.Pd., M.Tr.Kom.<br>
+        Nama Kelompok: Groceria<br>
+        Kelas: KH001<br><br>
+        <strong>Anggota Kelompok:</strong><br>
+        &gt; Rafi Adriyan Ramadhan <br>
+        &gt; Raffa Nugraha <br>
+        &gt; M. Rafi Adhiya
+    </p>
 </footer>
 
 <script src="{{ asset('assets/js/modules/home.js') }}"></script>

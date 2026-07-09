@@ -92,6 +92,14 @@ body {
     color: black;
 }
 
+.card img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
 .card.active {
     border: 2px solid green;
     background: #e8f5e9;
@@ -185,7 +193,7 @@ body {
 
 /* FOOTER */
 footer {
-    text-align: center;
+    text-align: left;
     margin-top: 40px;
     color: gray;
 }

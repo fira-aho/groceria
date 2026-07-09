@@ -9,7 +9,10 @@ document.querySelectorAll(".produk-card button").forEach(function (btn) {
 });
 
 document.querySelectorAll('.btn-add-cart').forEach(function (btn) {
-    btn.addEventListener('click', function () {
+    btn.addEventListener('click', function (e) {
+        e.stopPropagation(); // Mencegah klik tombol memicu link produk
+        e.preventDefault();  // Mencegah aksi default button
+
         const productId = this.dataset.id;
 
         fetch('/cart/add', {
