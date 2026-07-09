@@ -78,7 +78,7 @@
                     <img src="{{ asset('assets/img/' . $rek->image) }}" alt="{{ $rek->name }}">
                     <p>{{ $rek->name }}</p>
                     <span>Rp {{ number_format($rek->price, 0, ',', '.') }}</span>
-                    <button>Tambah</button>
+                    <button class="btn-add-recommendation" data-id="{{ $rek->id }}">Tambah</button>
                 </div>
                 @endforeach
 

@@ -40,12 +40,19 @@
                 <button type="submit">Login</button>
             </form>
 
+            {{-- Link Lupa Password (Disembunyikan sementara untuk hosting) --}}
+            <div style="text-align: right; margin-top: 10px; font-size: 14px;">
+                {{-- <a href="{{ route('password.request') }}">Lupa Password?</a> --}}
+            </div>
+
             <div class="login-link">
                 Belum punya akun?
                 <a href="{{ url('/register') }}">Daftar sekarang</a>
             </div>
         </section>
     </main>
+
+    @include('partials.footer')
 
 </body>
 </html>

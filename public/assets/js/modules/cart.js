@@ -187,6 +187,40 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   };
 
+  // ===== TAMBAH REKOMENDASI KE KERANJANG =====
+  document.querySelectorAll(".btn-add-recommendation").forEach(function (button) {
+    button.addEventListener("click", function () {
+      const productId = this.dataset.id;
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+      fetch("/cart/add", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-CSRF-TOKEN": csrfToken,
+        },
+        body: JSON.stringify({ product_id: productId, qty: 1 }),
+      })
+      .then(res => {
+        if (!res.ok) {
+          // Jika ada error dari server (misal: validasi gagal)
+          throw new Error('Gagal menambahkan produk.');
+        }
+        return res.json();
+      })
+      .then(data => {
+        if (data.status === 'success') {
+          alert(data.message); // Beri notifikasi ke user
+          window.location.reload(); // Refresh halaman untuk menampilkan item baru
+        }
+      })
+      .catch((error) => {
+        alert(error.message || 'Terjadi kesalahan saat menambahkan produk.');
+      });
+    });
+  });
+
   // ===== LOAD AWAL =====
   updateCart();
 });
