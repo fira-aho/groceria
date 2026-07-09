@@ -53,7 +53,7 @@ Tanggal :
 
 </tr>
 
-@foreach($cartItems as $item)
+@foreach($orderItems as $item)
 
 <tr>
 

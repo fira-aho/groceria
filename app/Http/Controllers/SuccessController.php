@@ -2,20 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class SuccessController extends Controller
 {
     public function index()
     {
-        $metode = session('metode_pembayaran');
-        $subtotal = session('subtotal');
-        $grandTotal = session('grandTotal');
+        // Ambil order_id dari session yang dikirim oleh CheckoutController
+        $orderId = session('order_id'); 
+        
+        // Jika tidak ada order_id di session, kembalikan ke halaman utama
+        if (!$orderId) {
+            return redirect('/');
+        }
 
-        return view('success.success', compact(
-            'metode',
-            'subtotal',
-            'grandTotal'
-        ));
+        // Ambil data order lengkap dari database
+        $order = Order::findOrFail($orderId);
+        return view('success.success', compact('order'));
     }
 }

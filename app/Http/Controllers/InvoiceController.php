@@ -2,33 +2,38 @@
 
 namespace App\Http\Controllers;
 
-use Barryvdh\DomPDF\Facade\Pdf;
-use App\Models\Cart;
+use App\Models\Order;
+use PDF; // Gunakan alias yang terdaftar secara global
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceController extends Controller
 {
-    public function generate()
+    // Terima $order sebagai parameter dari route
+    public function generate(Order $order)
     {
-        $userId = Auth::id();
-
-        $cartItems = Cart::with('product')
-                    ->where('user_id', $userId)
-                    ->get();
-
-        $subtotal = $cartItems->sum('subtotal');
-
+        // Pastikan user yang login adalah pemilik order ini
+        if (Auth::id() !== $order->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
+        
+        // Ambil item-item yang berelasi dengan order ini
+        $orderItems = $order->items()->with('product')->get();
+        
+        // Ambil subtotal dari data order yang sudah tersimpan
+        $subtotal = $order->total_price;
+        
+        // Tentukan ongkir (bisa dibuat dinamis nanti)
         $ongkir = 15000;
-
+        
         $grandTotal = $subtotal + $ongkir;
-
-        $pdf = Pdf::loadView('invoice.invoice', compact(
-            'cartItems',
+        
+        $pdf = PDF::loadView('invoice.invoice', compact('order', 'orderItems',
             'subtotal',
             'ongkir',
             'grandTotal'
         ));
-
-        return $pdf->download('Invoice-Groceria.pdf');
+        
+        // Buat nama file dinamis berdasarkan ID order
+        return $pdf->download('Invoice-Groceria-' . $order->id . '.pdf');
     }
 }

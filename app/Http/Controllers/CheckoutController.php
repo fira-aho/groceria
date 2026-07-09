@@ -13,10 +13,19 @@ class CheckoutController extends Controller
     public function index()
     {
         // Ambil item keranjang milik user yang sedang login
-        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
-        $total = $cartItems->sum('subtotal');
-
-        return view('checkout.checkout', compact('cartItems', 'total'));
+        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get(); 
+ 
+        // 1. Hitung subtotal (total harga barang) 
+        $subtotal = $cartItems->sum('subtotal'); 
+ 
+        // 2. Tentukan ongkir (untuk sekarang kita buat nilai tetap) 
+        $ongkir = 10000; 
+ 
+        // 3. Hitung total keseluruhan 
+        $total = $subtotal + $ongkir; 
+ 
+        // 4. Kirim semua variabel yang dibutuhkan ke view 
+        return view('checkout.checkout', compact('cartItems', 'subtotal', 'ongkir', 'total'));
     }
 
     public function store(Request $request)
@@ -42,7 +51,7 @@ class CheckoutController extends Controller
         $totalPrice = $cartItems->sum('subtotal');
 
         // 4. Gunakan transaction untuk memastikan semua proses berhasil
-        DB::transaction(function () use ($request, $userId, $cartItems, $totalPrice) {
+        $order = DB::transaction(function () use ($request, $userId, $cartItems, $totalPrice) {
             // 4a. Buat order baru di tabel 'orders'
             $order = Order::create([
                 'user_id' => $userId,
@@ -64,9 +73,13 @@ class CheckoutController extends Controller
 
             // 4c. Kosongkan keranjang user setelah checkout berhasil
             Cart::where('user_id', $userId)->delete();
+
+            return $order;
         });
 
         // 5. Redirect ke halaman sukses
-        return redirect('/success')->with('success_message', 'Pesanan Anda berhasil dibuat!');
+        return redirect('/success')
+            ->with('success_message', 'Pesanan Anda berhasil dibuat!')
+            ->with('order_id', $order->id); // Kirim ID pesanan ke halaman sukses
     }
 }

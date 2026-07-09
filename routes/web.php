@@ -103,5 +103,4 @@ Route::get('/success', [SuccessController::class, 'index'])
     ->name('success');
 
 // Rute untuk halaman invoice
-Route::get('/invoice', [InvoiceController::class, 'generate'])
-    ->name('invoice');
+Route::get('/invoice/{order}', [InvoiceController::class, 'generate'])->name('invoice.generate');

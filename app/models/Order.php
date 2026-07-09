@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\OrderItem;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -21,4 +22,12 @@ class Order extends Model
         'metode_pembayaran',
         'total_price'
     ];
+
+    /**
+     * Mendefinisikan relasi one-to-many ke OrderItem.
+     */
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
+    }
 }

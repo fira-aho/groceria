@@ -33,33 +33,33 @@
 
             <div class="row">
                 <span>Nomor Pesanan</span>
-                <b>#GRC-12345</b>
+                <b>#GRC-{{ $order->id }}</b>
             </div>
 
             <div class="row">
                 <span>Metode Pembayaran</span>
-                <b>{{ $metode }}</b>
+                <b>{{ $order->metode_pembayaran }}</b>
             </div>
 
             <hr />
 
             <div class="row">
                 <span>Subtotal Produk</span>
-                <b>Rp {{ number_format($subtotal,0,',','.') }}</b>
+                <b>Rp {{ number_format($order->total_price, 0, ',', '.') }}</b>
             </div>
 
             <div class="row">
                 <span>Ongkir</span>
-                <b>Rp 15.000</b>
+                <b>Rp 10.000</b> {{-- Sesuaikan dengan yang ada di CheckoutController --}}
             </div>
 
             <div class="row total">
                 <span>Total Pembayaran</span>
-                <b>Rp {{ number_format($grandTotal,0,',','.') }}</b>
+                <b>Rp {{ number_format($order->total_price + 10000, 0, ',', '.') }}</b>
             </div>
 
             <div class="btn-group">
-    <a href="{{ route('invoice') }}" class="btn primary">
+    <a href="{{ route('invoice.generate', ['order' => $order->id]) }}" class="btn primary">
         📄 Lihat Invoice
     </a>
 
@@ -80,17 +80,17 @@
 
                 <div class="row">
                     <span>SUBTOTAL</span>
-                    <b>Rp {{ number_format($subtotal,0,',','.') }}</b>
+                    <b>Rp {{ number_format($order->total_price, 0, ',', '.') }}</b>
                 </div>
 
                 <div class="row">
                     <span>ONGKIR</span>
-                    <b>Rp 15.000</b>
+                    <b>Rp 10.000</b>
                 </div>
 
                 <div class="row">
                     <span>TOTAL BELANJA</span>
-                    <b>Rp {{ number_format($grandTotal,0,',','.') }}</b>
+                    <b>Rp {{ number_format($order->total_price + 10000, 0, ',', '.') }}</b>
                 </div>
 
                 <div class="progress">
