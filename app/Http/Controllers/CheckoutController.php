@@ -2,42 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Order;
-use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutController extends Controller
 {
     public function index()
     {
-        // Ambil ID user yang sedang login
-        $userId = Auth::id();
+        // Ambil item keranjang milik user yang sedang login
+        $cartItems = Cart::with('product')->where('user_id', Auth::id())->get();
+        $total = $cartItems->sum('subtotal');
 
-        // Ambil semua isi keranjang beserta data produknya
-        $cartItems = Cart::with('product')
-            ->where('user_id', $userId)
-            ->get();
-
-        // Hitung subtotal
-        $subtotal = $cartItems->sum('subtotal');
-
-        // Ongkir
-        $ongkir = $cartItems->isEmpty() ? 0 : 15000;
-
-        // Total pembayaran
-        $total = $subtotal + $ongkir;
-
-        return view('checkout.checkout', compact(
-            'cartItems',
-            'subtotal',
-            'ongkir',
-            'total'
-        ));
+        return view('checkout.checkout', compact('cartItems', 'total'));
     }
 
     public function store(Request $request)
     {
+        // 1. Validasi input form
         $request->validate([
             'nama_lengkap' => 'required',
             'no_telepon' => 'required',
@@ -45,28 +29,44 @@ class CheckoutController extends Controller
             'metode_pembayaran' => 'required'
         ]);
 
-        Order::create([
-            'nama_lengkap' => $request->nama_lengkap,
-            'no_telepon' => $request->no_telepon,
-            'alamat' => $request->alamat
-        ]);
-
+        // 2. Ambil data keranjang user
         $userId = Auth::id();
+        $cartItems = Cart::with('product')->where('user_id', $userId)->get();
 
-        $cartItems = Cart::with('product')
-            ->where('user_id', $userId)
-            ->get();
+        // Jika keranjang kosong, jangan proses
+        if ($cartItems->isEmpty()) {
+            return redirect('/')->with('error', 'Keranjang Anda kosong!');
+        }
 
-        $subtotal = $cartItems->sum('subtotal');
-        $ongkir = $cartItems->isEmpty() ? 0 : 15000;
-        $grandTotal = $subtotal + $ongkir;
+        // 3. Hitung total harga
+        $totalPrice = $cartItems->sum('subtotal');
 
-        session([
-            'metode_pembayaran' => $request->metode_pembayaran,
-            'subtotal' => $subtotal,
-            'grandTotal' => $grandTotal,
-        ]);
+        // 4. Gunakan transaction untuk memastikan semua proses berhasil
+        DB::transaction(function () use ($request, $userId, $cartItems, $totalPrice) {
+            // 4a. Buat order baru di tabel 'orders'
+            $order = Order::create([
+                'user_id' => $userId,
+                'nama_lengkap' => $request->nama_lengkap,
+                'no_telepon' => $request->no_telepon,
+                'alamat' => $request->alamat,
+                'metode_pembayaran' => $request->metode_pembayaran,
+                'total_price' => $totalPrice,
+            ]);
 
-        return redirect()->route('success');
+            // 4b. Pindahkan setiap item dari keranjang ke tabel 'order_items'
+            foreach ($cartItems as $item) {
+                $order->items()->create([ // 'items' adalah nama relasi yang akan kita buat
+                    'product_id' => $item->product_id,
+                    'qty' => $item->qty,
+                    'price' => $item->product->price, // Simpan harga saat itu
+                ]);
+            }
+
+            // 4c. Kosongkan keranjang user setelah checkout berhasil
+            Cart::where('user_id', $userId)->delete();
+        });
+
+        // 5. Redirect ke halaman sukses
+        return redirect('/success')->with('success_message', 'Pesanan Anda berhasil dibuat!');
     }
 }
