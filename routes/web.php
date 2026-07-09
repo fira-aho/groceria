@@ -59,11 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     // Keranjang Belanja (Cart)
-    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
-    Route::post('/cart', [CartController::class, 'store'])
-    ->name('cart.store');
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.index');    
     Route::post('/cart/update-qty', [CartController::class, 'updateQty'])->name('cart.update_qty');
-    Route::post('/cart/add', [CartController::class, 'store'])->name('cart.add');
 });
 
 // ==========================================
@@ -79,12 +76,8 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     
 });
 
-// Rute untuk menambahkan produk ke keranjang
-Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
-
-
-// Rute untuk menambahkan produk ke keranjang
-Route::post('/cart/add', [CartController::class, 'store'])->name('cart.store');
+// Rute untuk menambahkan produk ke keranjang (memerlukan login)
+Route::post('/cart/add', [CartController::class, 'store'])->middleware('auth')->name('cart.add');
 
 // Rute untuk Profile
 Route::get('/profile', [ProfileController::class, 'index'])->middleware('auth');
