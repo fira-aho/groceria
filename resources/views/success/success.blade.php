@@ -59,9 +59,14 @@
             </div>
 
             <div class="btn-group">
-                <button class="btn primary">📄 Lihat Invoice</button>
-                <button class="btn secondary">Lacak Pesanan</button>
-            </div>
+    <a href="{{ route('invoice') }}" class="btn primary">
+        📄 Lihat Invoice
+    </a>
+
+    <button class="btn secondary">
+        Lacak Pesanan
+    </button>
+    </div>
 
         </div>
 
@@ -101,14 +106,13 @@
             <!-- SHIPPING -->
             <div class="card">
 
-                <p class="label">ESTIMASI PENGIRIMAN</p>
+               <p class="label">ESTIMASI PENGIRIMAN</p>
 
-                <h3>Besok, 08:00 - 10:00</h3>
+<h3>Kurang dari 1 Jam</h3>
 
-                <p class="courier">
-                    Kurir: Groceria Express
-                </p>
-
+<p class="courier">
+    Kurir: Groceria Express
+</p>
             </div>
 
         </div>

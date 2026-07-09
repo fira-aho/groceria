@@ -14,6 +14,7 @@ use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuccessController;
+use App\Http\Controllers\InvoiceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,3 +101,7 @@ Route::get('/search', [SearchController::class, 'index'])
 // Rute untuk halaman success
 Route::get('/success', [SuccessController::class, 'index'])
     ->name('success');
+
+// Rute untuk halaman invoice
+Route::get('/invoice', [InvoiceController::class, 'generate'])
+    ->name('invoice');
