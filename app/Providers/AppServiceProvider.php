@@ -3,7 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Pagination\Paginator; // 1. Tambahkan baris ini
+use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -14,7 +15,10 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // 2. Tambahkan baris ini agar Laravel menggunakan gaya Bootstrap 5
         Paginator::useBootstrapFive();
+
+        if (config('app.env') === 'production') {
+            URL::forceScheme('https');
+        }
     }
 }
