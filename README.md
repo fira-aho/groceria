@@ -1,59 +1,104 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <h1>🛒 Groceria - Aplikasi E-Commerce Sembako</h1>
+  <p>
+    Aplikasi web e-commerce sederhana yang dibangun dengan <strong>Laravel</strong> untuk simulasi toko online sembako.
+  </p>
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## ✨ Fitur Utama
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Aplikasi ini memiliki dua peran utama: **Pelanggan** dan **Admin**.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Untuk Pelanggan:
+*   👤 **Autentikasi**: Registrasi, Login, Logout, dan Lupa Password.
+*   🛍️ **Katalog Produk**: Menjelajahi produk, melihat detail, mencari, dan memfilter berdasarkan kategori.
+*   🛒 **Keranjang Belanja**: Menambah produk ke keranjang, mengubah kuantitas, dan melihat subtotal.
+*   💳 **Proses Checkout**: Mengisi alamat pengiriman dan menyelesaikan pesanan.
+*   📄 **Invoice**: Melihat dan mengunduh invoice setelah pesanan berhasil dibuat.
+*   ⚙️ **Manajemen Profil**: Mengubah data pribadi dan password.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Untuk Admin:
+*   🔐 **Akses Terbatas**: Halaman admin hanya bisa diakses oleh pengguna dengan peran 'admin'.
+*   📊 **Dashboard**: Halaman utama untuk admin.
+*   📦 **Manajemen Produk**: Fungsi CRUD (Create, Read, Update, Delete) untuk mengelola data produk.
 
-## Learning Laravel
+## 🛠️ Teknologi yang Digunakan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+*   **Backend**: PHP 8.1+, [Laravel](https://laravel.com/)
+*   **Frontend**: HTML, CSS, JavaScript
+*   **Database**: MySQL
+*   **Server**: Apache / Nginx (atau server bawaan Laravel)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🚀 Panduan Instalasi & Menjalankan Aplikasi
 
-## Laravel Sponsors
+Berikut adalah langkah-langkah untuk menjalankan proyek ini di lingkungan lokal Anda.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 1. Prasyarat
+Pastikan perangkat Anda sudah terinstal:
+- [PHP](https://www.php.net/downloads.php) (>= 8.1)
+- [Composer](https://getcomposer.org/download/)
+- [Node.js](https://nodejs.org/en/download/) & NPM
+- Database (misalnya: MySQL, MariaDB)
 
-### Premium Partners
+### 2. Clone Repository
+Buka terminal atau command prompt, lalu clone repository ini.
+```bash
+git clone https://github.com/fira-aho/groceria.git
+cd NAMA_REPO_ANDA
+```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 3. Instalasi Dependensi
+Instal semua dependensi PHP yang dibutuhkan menggunakan Composer.
+```bash
+composer install
+```
 
-## Contributing
+### 4. Konfigurasi Lingkungan
+Salin file `.env.example` menjadi `.env` dan generate kunci aplikasi.
+```bash
+# Untuk Windows (Command Prompt)
+copy .env.example .env
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+# Untuk Linux/macOS atau Git Bash
+cp .env.example .env
 
-## Code of Conduct
+php artisan key:generate
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 5. Konfigurasi Database
+Buka file `.env` dan sesuaikan konfigurasi database Anda.
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=groceria # Buat database dengan nama ini
+DB_USERNAME=root     # Sesuaikan dengan username database Anda
+DB_PASSWORD=         # Sesuaikan dengan password database Anda
+```
+Pastikan Anda sudah membuat database kosong dengan nama yang sesuai (contoh: `groceria`).
 
-## Security Vulnerabilities
+### 6. Migrasi Database
+Jalankan migrasi untuk membuat semua tabel yang dibutuhkan oleh aplikasi.
+```bash
+php artisan migrate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+*(Opsional)* Jika Anda memiliki seeder untuk data awal (misal: akun admin, produk), jalankan perintah berikut:
+```bash
+php artisan db:seed
+```
 
-## License
+### 7. Jalankan Server
+Terakhir, jalankan server pengembangan lokal Laravel.
+```bash
+php artisan serve
+```
+Aplikasi Anda sekarang dapat diakses melalui browser di alamat **http://127.0.0.1:8000**.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+---
+
+## 📄 Lisensi
+
+Proyek ini dilisensikan di bawah MIT License.
