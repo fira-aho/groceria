@@ -18,11 +18,11 @@
     <a href="#" class="search-btn">Cari bahan segar pilihan...</a>
     <div class="icons">
         <a href="#" class="cart-link">🛒</a>
-        @if(session('user_id'))
-            <a href="/profile" class="profile-link">👤 {{ session('nama') }}</a>
+        @auth
+            <a href="/profile" class="profile-link">👤 {{ Auth::user()->name }}</a>
         @else
             <a href="/login" class="signin-btn">Sign In</a>
-        @endif
+        @endauth
     </div>
 </div>
 
