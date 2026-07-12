@@ -113,7 +113,8 @@
         <strong>Anggota Kelompok:</strong><br>
         &gt; Rafi Adriyan Ramadhan <br>
         &gt; Raffa Nugraha <br>
-        &gt; M. Rafi Adhiya
+        &gt; M. Rafi Adhiya<br>
+        url: groceria.up.railway.app<br>
     </p>
 </footer>
 
