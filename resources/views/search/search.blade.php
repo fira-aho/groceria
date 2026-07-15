@@ -228,7 +228,7 @@ function selectProduct(item) {
                     <div class="fill" style="width:${item.fill}"></div>
                 </div>
 
-                <form method="POST" action="{{ route('cart.store') }}">
+                <form method="POST" action="{{ route('cart.add') }}">
     @csrf
     <input type="hidden" name="product_id" value="${item.id}">
 
