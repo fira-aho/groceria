@@ -23,4 +23,16 @@ class OrderController extends Controller
         
         return view('admin.orders.show', compact('order'));
     }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string|in:pending,diproses,dikirim,selesai,dibatalkan'
+        ]);
+
+        $order = Order::findOrFail($id);
+        $order->update(['status' => $request->status]);
+
+        return redirect()->back()->with('success', 'Status pesanan berhasil diperbarui!');
+    }
 }

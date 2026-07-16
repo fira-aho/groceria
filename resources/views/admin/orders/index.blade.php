@@ -16,6 +16,7 @@
                         <th>Metode Pembayaran</th>
                         <th>Total Belanja</th>
                         <th>Aksi</th>
+                        <th>Status</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -36,10 +37,15 @@
                                 <i class="bi bi-eye"></i> Detail
                             </a>
                         </td>
+                        <td>
+                            <span class="badge bg-{{ $order->status == 'selesai' ? 'success' : ($order->status == 'pending' ? 'warning' : ($order->status == 'dibatalkan' ? 'danger' : 'primary')) }}">
+                                {{ ucfirst($order->status) }}
+                            </span>
+                        </td>
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="6" class="text-center text-muted py-4">Belum ada transaksi masuk.</td>
+                        <td colspan="7" class="text-center text-muted py-4">Belum ada transaksi masuk.</td>
                     </tr>
                     @endforelse
                 </tbody>

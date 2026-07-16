@@ -20,7 +20,8 @@ class Order extends Model
         'no_telepon',
         'alamat',
         'metode_pembayaran',
-        'total_price'
+        'total_price',
+        'status'
     ];
 
     /**

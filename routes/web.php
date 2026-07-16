@@ -78,6 +78,7 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     // Halaman Manajemen Transaksi
     Route::get('/transaksi', [OrderController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [OrderController::class, 'show'])->name('transaksi.show');
+    Route::put('/transaksi/{id}/status', [OrderController::class, 'updateStatus'])->name('transaksi.update_status');
     
 });
 
