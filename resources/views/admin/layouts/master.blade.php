@@ -52,7 +52,10 @@
                 <a href="/admin/dashboard" class="active"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a>
                 <a href="{{ route('produk.index') }}" class="{{ request()->routeIs('produk.*') ? 'active' : '' }}"><i
                         class="bi bi-box-seam me-2"></i> Produk</a>
-                <a href="#"><i class="bi bi-cart-check me-2"></i> Transaksi</a>
+                <a href="{{ route('transaksi.index') }}"
+                    class="{{ request()->routeIs('transaksi.*') ? 'active' : '' }}">
+                    <i class="bi bi-cart-check me-2"></i> Transaksi
+                </a>
 
                 <hr class="text-secondary">
 

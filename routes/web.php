@@ -15,6 +15,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Admin\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -73,6 +74,10 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
 
     // Halaman Manajemen Produk (Otomatis membuat semua rute CRUD)
     Route::resource('produk', ProductController::class);
+
+    // Halaman Manajemen Transaksi
+    Route::get('/transaksi', [OrderController::class, 'index'])->name('transaksi.index');
+    Route::get('/transaksi/{id}', [OrderController::class, 'show'])->name('transaksi.show');
     
 });
 
