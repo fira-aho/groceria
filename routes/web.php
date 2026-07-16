@@ -16,6 +16,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,6 +80,11 @@ Route::prefix('admin')->middleware(['auth', IsAdmin::class])->group(function () 
     Route::get('/transaksi', [OrderController::class, 'index'])->name('transaksi.index');
     Route::get('/transaksi/{id}', [OrderController::class, 'show'])->name('transaksi.show');
     Route::put('/transaksi/{id}/status', [OrderController::class, 'updateStatus'])->name('transaksi.update_status');
+
+    // Halaman Manajemen Pengguna
+    Route::get('/pengguna', [UserController::class, 'index'])->name('pengguna.index');
+    Route::put('/pengguna/{id}/role', [UserController::class, 'updateRole'])->name('pengguna.update_role');
+    Route::delete('/pengguna/{id}', [UserController::class, 'destroy'])->name('pengguna.destroy');
     
 });
 
