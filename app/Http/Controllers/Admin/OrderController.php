@@ -16,6 +16,15 @@ class OrderController extends Controller
         return view('admin.orders.index', compact('orders'));
     }
 
+    public function print()
+    {
+        // Ambil semua pesanan yang sudah selesai untuk masuk ke laporan pendapatan
+        $orders = Order::where('status', 'selesai')->orderBy('created_at', 'desc')->get();
+        $totalPendapatan = $orders->sum('total_price');
+
+        return view('admin.orders.print', compact('orders', 'totalPendapatan'));
+    }
+
     public function show($id)
     {
         // Tarik detail pesanan beserta relasi item produknya

@@ -4,6 +4,14 @@
 @section('page_heading', 'Daftar Transaksi')
 
 @section('content')
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h5 class="m-0 text-secondary">Manajemen Transaksi</h5>
+    <a href="{{ route('transaksi.print') }}" target="_blank" class="btn btn-success shadow-sm">
+        <i class="bi bi-printer me-1"></i> Cetak Laporan Penjualan
+    </a>
+</div>
+
 <div class="card border-0 shadow-sm">
     <div class="card-body">
         <div class="table-responsive">
